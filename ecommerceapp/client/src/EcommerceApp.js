@@ -1,25 +1,27 @@
 // EcommerceApp.js
-
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import Home from './pages/Home/Home.jsx';
+import Products from './pages/Products/Products.jsx';
+import Product from './pages/Product/Product.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <span>Home</span>
+    element: <Home/>
   },
   {
     path: '/products/:id',
-    element: <span>Category</span>
+    element: <Products/>
   },
   {
-    path: '/products/:id',
-    element: <span>Product</span>
+    path: '/product/:id',
+    element: <Product/>
   },
 ])
 
 function EcommerceApp() {
   return (
-    <div className="App">
+    <div className="EcommerceApp">
       <RouterProvider router={router}/>
     </div>
   );
