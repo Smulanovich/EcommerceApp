@@ -1,4 +1,7 @@
-.EcommerceApp {
-  text-align: center;
-}
+.EcommerceApp{
 
+  .link{
+    color: inherit;
+    text-decoration: none;
+  }
+}
