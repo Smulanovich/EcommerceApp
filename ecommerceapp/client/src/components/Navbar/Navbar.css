@@ -1,60 +1,61 @@
 .Navbar{
     height: 80px;
-
-    .wrapper{
-        padding: 10px 30px;
-        display: flex;
-        justify-content: space-between;
-
-        .item{
-            display: flex;
-            align-items: center;
-            font-size: 19px;
-        }
-
-        .left{
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .center{
-            font-size: 32px;
-            letter-spacing: 3px;
-            align-items: center;
-        }
-
-        .right{
-            display: flex;
-            align-items: center;
-            gap: 25px;
-
-            .icons{
-                display: flex;
-                align-items: center;
-                gap: 14px;
-                color:rgb(70, 98, 124);
-
-                .cartIcon {
-                    position: relative;
-                }
-                
-                .cartIcon span {
-                    font-size: 11px;
-                    width: 20px;
-                    height: 20px;
-                    border-radius: 50%;
-                    background-color: rgb(119, 38, 173);
-                    color: white;
-                    position: absolute;
-                    right: -10px;
-                    top: -10px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                
-            }
-        }
-    }
 }
+
+.wrapper{
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item{
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+}
+
+.left{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.center{
+    font-size: 32px;
+    letter-spacing: 3px;
+    align-items: center;
+}
+
+.right{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.icons{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color:rgb(70, 98, 124);
+}
+
+.cartIcon {
+    position: relative;
+}
+            
+.cartIcon span {
+    font-size: 11px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(119, 38, 173);
+    color: white;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+            
+
