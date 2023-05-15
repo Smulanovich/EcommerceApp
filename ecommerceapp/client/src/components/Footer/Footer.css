@@ -1,0 +1,50 @@
+.Footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 17px;
+  }
+  
+  .Footer .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: justify;
+    font-size: 13px;
+    padding: 7px;
+  }
+  
+  .Footer .item h1 {
+    font-size: 17px;
+    font-weight: 500;
+    color: gray;
+    margin-bottom: 10px; /* Add margin-bottom to create space below the header */
+  }
+  
+  .Footer .item .links {
+    display: flex;
+    flex-direction: column;
+    color: gray;
+    text-align: justify;
+    align-items: flex-start; /* Align the links to the start of the container */
+  }
+  
+  .Footer .item .links a {
+    padding: 5px 0;
+    text-decoration: none;
+    color: gray;
+  }
+  
+  .Footer .logo {
+    height: 170px;
+    align-self: flex-end;
+    margin-right: 20px;
+  }
+  
