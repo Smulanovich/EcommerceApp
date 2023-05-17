@@ -1,8 +1,9 @@
-import express from 'express';
-import {
+const express = require('express');
+const {
   getAllProducts,
   getProductByName
-} from './productController.js';
+} = require('./productController.js');
+
 
 const router = express.Router();
 
@@ -31,5 +32,6 @@ router.get('/:name', async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
+
 

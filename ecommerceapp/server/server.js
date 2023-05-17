@@ -1,13 +1,13 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import productRoutes from './productRoutes.js';
-import dotenv from 'dotenv';
+const express = require('express');
+const mongoose = require('mongoose');
+const productRoutes = require('./productRoutes.js');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
 const app = express();
-const port = 3000;
-const dbURI = process.env.MONGODB_URI; // Assuming you set the environment variable MONGODB_URI
+const port = 4000;
+const dbURI = process.env.MONGODB_URI; 
 
 // Connect to MongoDB Atlas
 mongoose.connect(dbURI, {

@@ -1,21 +1,4 @@
-/* .Slider {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .Slider img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100vh;
-    object-fit: contain;
-  }
-   */
-
-   .slider{
+.Slider{
       .img{
         object-fit: cover;
         width: 300vw;
