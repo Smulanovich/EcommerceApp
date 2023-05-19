@@ -1,25 +1,32 @@
-const Product = require('./productModel.js').default;
+const { MongoClient, ServerApiVersion } = require('mongodb');
+require('dotenv').config();
 
-// Function to retrieve all items from the Products collection
-async function getAllProducts() {
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri);
+
+
+// async function getAllProducts() {
+//   try {
+//     const products = await Product.find();
+//     return products;
+//   } catch (error) {
+//     console.error('Error retrieving products:', error);
+//     throw new Error('Error retrieving products');
+//   }
+// }
+
+async function getProductByName(nameItem) {
   try {
-    const products = await Product.find();
-    return products;
-  } catch (error) {
-    throw new Error('Error retrieving products');
+    const database = client.db('EcommerceApp');
+    const Products = database.collection('Products');
+    const product = await Products.findOne({ name: nameItem });
+    return product;
+  } finally {
+    //Close when you finish/error
+    await client.close();
   }
 }
 
-// Function to retrieve a product by name
-async function getProductByName(name) {
-  try {
-    const product = await Product.findOne({ name });
-    return product || null; // Return null if product is not found
-  } catch (error) {
-    throw new Error('Error retrieving product');
-  }
-}
-
-exports.getAllProducts = getAllProducts;
+//exports.getAllProducts = getAllProducts;
 exports.getProductByName = getProductByName;
 
