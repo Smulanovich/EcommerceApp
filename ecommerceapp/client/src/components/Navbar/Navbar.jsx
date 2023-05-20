@@ -38,7 +38,9 @@ const Navbar = () => {
                 </div>
                 <div className="icons">
                     <SearchOutlinedIcon/>
-                    <AccountCircleOutlinedIcon/>
+                    <Link classname="link" to="/SignIn/Register">
+                        <AccountCircleOutlinedIcon/>
+                    </Link>
                     <GradeOutlinedIcon/>
                     <div className="cartIcon">
                         <LocalMallOutlinedIcon/>

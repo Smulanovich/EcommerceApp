@@ -7,6 +7,9 @@ import Products from './pages/Products/Products.jsx';
 import Product from './pages/Product/Product.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import Register from './pages/SignIn/Register.jsx';
+//import Login from './pages/SignIn/Login.jsx';
+
 
 
 
@@ -36,7 +39,16 @@ const router = createBrowserRouter([
       {
         path: '/product/:id',
         element: <Product/>
-      }
+      },
+      {
+        path:'/SignIn/:id',
+        element: <Register />
+        //errorElement: <h1>Page not Found</h1>
+      },
+      //{
+        //path:'/SignIn/:id',
+        //element: <Login />
+      //}
     ]
   }
 ]);
