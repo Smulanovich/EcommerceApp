@@ -1,8 +1,9 @@
 const express = require('express');
+const cors = require('cors'); // Import the cors package
 const app = express();
 const productController = require('./productController'); // Update the path if necessary
 
-// Other server configurations and middleware setup
+app.use(cors()); // Add the cors middleware
 
 // API endpoint for retrieving all products
 app.get('/api/products', async (req, res) => {
@@ -30,7 +31,7 @@ app.get('/api/products/:name', async (req, res) => {
   }
 });
 
-// Start the server
+
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
