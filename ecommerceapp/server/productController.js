@@ -1,32 +1,48 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 
-
-// async function getAllProducts() {
-//   try {
-//     const products = await Product.find();
-//     return products;
-//   } catch (error) {
-//     console.error('Error retrieving products:', error);
-//     throw new Error('Error retrieving products');
-//   }
-// }
-
-async function getProductByName(nameItem) {
+async function connectAndClose(callback) {
   try {
-    const database = client.db('EcommerceApp');
-    const Products = database.collection('Products');
-    const product = await Products.findOne({ name: nameItem });
-    return product;
+    await client.connect();
+    await callback(client.db('EcommerceApp'));
+  } catch (error) {
+    console.error('Error:', error);
+    throw new Error('Error connecting to MongoDB');
   } finally {
-    //Close when you finish/error
     await client.close();
   }
 }
 
-//exports.getAllProducts = getAllProducts;
-exports.getProductByName = getProductByName;
+async function getAllProducts() {
+  try {
+    let products;
+    await connectAndClose(async (database) => {
+      const Products = database.collection('Products');
+      products = await Products.find().toArray();
+    });
+    return products;
+  } catch (error) {
+    console.error('Error retrieving products:', error);
+    throw new Error('Error retrieving products');
+  }
+}
 
+async function getProductByName(nameItem) {
+  try {
+    let product;
+    await connectAndClose(async (database) => {
+      const Products = database.collection('Products');
+      product = await Products.findOne({ name: nameItem });
+    });
+    return product;
+  } catch (error) {
+    console.error(`Error retrieving ${nameItem}:`, error);
+    throw new Error(`Error retrieving ${nameItem}`);
+  }
+}
+
+exports.getAllProducts = getAllProducts;
+exports.getProductByName = getProductByName;
