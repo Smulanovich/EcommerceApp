@@ -1,58 +1,61 @@
-// EcommerceApp.js
-
-import {createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
+//import React, { useState } from 'react';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import './EcommerceApp.css';
 import Home from './pages/Home/Home.jsx';
-import Product from './pages/Product/Product.jsx';
 import ProductDisplay from './pages/Products/ProductDisplay';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Products from './pages/Products/Products';
+import CartProvider from './components/Cart/CartProvider.jsx'
 
 const Layout = () => {
   return (
-    <div className='EcommerceApp'>
-      <Navbar/>
-      <Outlet/>
-      <Footer/>
+    <div className="EcommerceApp">
+      <Navbar />
+      <Outlet />
+      <Footer />
     </div>
   );
-}
+};
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout/>,
+    element: <Layout />,
     children: [
       {
         path: '/',
-        element: <Home/>,
+        element: <Home />,
       },
       {
         path: '/products',
-        element: <Products/>,
+        element: <Products />,
       },
       {
         path: '/products/CandyBars',
-        element: <ProductDisplay productType={1}/>,
+        element: <ProductDisplay productType={1} />,
       },
       {
         path: '/products/CandyCorn',
-        element: <ProductDisplay productType={2}/>
+        element: <ProductDisplay productType={2} />,
       },
       {
         path: '/products/CandySticks',
-        element: <ProductDisplay productType={3}/>
-      }
-    ]
-  }
+        element: <ProductDisplay productType={3} />,
+      },
+    ],
+  },
 ]);
 
-
 function EcommerceApp() {
+
   return (
     <div className="EcommerceApp">
-      <RouterProvider router={router}/>
+      <CartProvider>
+        <RouterProvider router={router}>
+          <Outlet/>
+        </RouterProvider>
+      </CartProvider>
     </div>
   );
 }

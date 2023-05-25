@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { CartContext } from "../../components/Cart/CartProvider.jsx";
 
-function CandyDisplay({ product }) {
+const CandyDisplay = ({ product }) => {
+
+  const {addToCart} = useContext(CartContext);
+
   return (
     <div className="product">
       <h2>{product.name}</h2>
       <img src={product.image_address} alt={`${product.name} img`} />
       <p>Price: {product.price}</p>
-      <button>Add to cart</button>
+      <button onClick={() => addToCart(product)}>Add to cart</button>
     </div>
   );
 }
 
-const Products = ({ productType }) => {
+function Products ({ productType }) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -31,7 +35,7 @@ const Products = ({ productType }) => {
     // Filter the products based on the productType
     const filtered = products.filter(product => product.type === productType);
     setFilteredProducts(filtered);
-  }, [productType, products]);
+  }, [products]);
 
   if (!filteredProducts) {
     console.error("Error: Items could not be retrieved.");
