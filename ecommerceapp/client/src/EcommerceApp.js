@@ -32,16 +32,16 @@ const router = createBrowserRouter([
         element: <Products />,
       },
       {
-        path: '/products/CandyBars',
-        element: <ProductDisplay productType={1} />,
+        path: '/products/CandyBar',
+        element: <ProductDisplay productType={"CandyBar"} />,
       },
       {
         path: '/products/CandyCorn',
-        element: <ProductDisplay productType={2} />,
+        element: <ProductDisplay productType={"CandyCorn"} />,
       },
       {
-        path: '/products/CandySticks',
-        element: <ProductDisplay productType={3} />,
+        path: '/products/CandyStick',
+        element: <ProductDisplay productType={"CandyStick"} />,
       },
     ],
   },

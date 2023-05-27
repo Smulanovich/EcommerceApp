@@ -17,13 +17,13 @@ const Navbar = () => {
             <div className="wrapper">   
                 <div className="left">
                     <div className="item">
-                        <Link className="link" to="/products/CandyBars">Candy Bars</Link>
+                        <Link className="link" to="/products/CandyBar">Candy Bars</Link>
                     </div>
                     <div className="item">
                         <Link className="link" to="/products/CandyCorn">Candy Corn</Link>
                     </div>
                     <div className="item">
-                        <Link className="link" to="/products/CandySticks">Candy Sticks</Link>
+                        <Link className="link" to="/products/CandyStick">Candy Sticks</Link>
                     </div>
                 </div>
                 <div className="center">

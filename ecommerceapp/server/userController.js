@@ -14,4 +14,7 @@ async function getUserByEmail(emailAddress) {
     }
 }
 
+async function insertUser() {
+    
+}
 exports.getUserByEmail = getUserByEmail;

@@ -18,30 +18,20 @@ const CandyDisplay = ({ product }) => {
 
 function Products({ productType }) {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
     // Make the HTTP request to fetch the products
-    axios
-      .get(`http://localhost:4000/api/Products`)
+    axios.get(`http://localhost:4000/api/${productType}`)
       .then((response) => {
         setProducts(response.data);
       })
       .catch((error) => {
         console.error("Error retrieving products:", error);
       });
-  }, []);
+  }, [productType,location]);
 
-  useEffect(() => {
-    // Filter the products based on the productType
-    const filtered = products.filter(
-      (product) => product.type === productType
-    );
-    setFilteredProducts(filtered);
-  }, [products, productType, location]);
-
-  if (!filteredProducts) {
+  if (!products) {
     console.error("Error: Items could not be retrieved.");
     return (
       <div className="retrError">
@@ -52,7 +42,7 @@ function Products({ productType }) {
 
   return (
     <div className="allProducts">
-      {filteredProducts.map((product) => (
+      {products.map((product) => (
         <div key={product.id}>
           <CandyDisplay product={product} />
         </div>

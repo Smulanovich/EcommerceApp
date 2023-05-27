@@ -1,39 +1,41 @@
+// server.js
+
 const express = require('express');
-const cors = require('cors'); // Import the cors package
+const cors = require('cors');
 const app = express();
-const productController = require('./productController'); // Update the path if necessary
+const productController = require('./productController');
 
-app.use(cors()); // Add the cors middleware
+app.use(cors());
 
-// API endpoint for retrieving all products
-app.get('/api/products', async (req, res) => {
+// API endpoint for retrieving documents from a specific collection
+app.get('/api/:collection', async (req, res) => {
   try {
-    const products = await productController.getAllProducts(); // Call the getAllProducts function from the product controller
-    res.json(products);
+    const collection = req.params.collection;
+    const documents = await productController.getAllDocumentsFromCollection(collection);
+    res.json(documents);
   } catch (error) {
-    console.error('Error retrieving products:', error);
-    res.status(500).json({ error: 'Error retrieving products' });
+    console.error(`Error retrieving documents from collection "${req.params.collection}":`, error);
+    res.status(500).json({ error: 'Error retrieving documents' });
   }
 });
 
-// API endpoint for retrieving a product by name
-app.get('/api/products/:name', async (req, res) => {
+// API endpoint for retrieving a document by name within a specific collection
+app.get('/api/:collection/:name', async (req, res) => {
   try {
+    const collection = req.params.collection;
     const name = req.params.name;
-    const product = await productController.getProductByName(name); // Call the getProductByName function from the product controller
-    if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+    const document = await productController.getItemByNameFromCollection(collection, name);
+    if (!document) {
+      return res.status(404).json({ error: 'Document not found' });
     }
-    res.json(product);
+    res.json(document);
   } catch (error) {
-    console.error(`Error retrieving product "${req.params.name}":`, error);
-    res.status(500).json({ error: 'Error retrieving product' });
+    console.error(`Error retrieving document "${req.params.name}" from collection "${req.params.collection}":`, error);
+    res.status(500).json({ error: 'Error retrieving document' });
   }
 });
-
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
-

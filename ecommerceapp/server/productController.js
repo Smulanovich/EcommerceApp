@@ -2,35 +2,32 @@
 
 const CC = require('./connectAndClose');
 
-async function getAllProducts() {
+async function getAllDocumentsFromCollection(collection) {
   try {
-    let products;
+    let documents;
     await CC.connectAndClose(async (database) => {
-      products = await database.collection('Products').find().toArray();
+      documents = await database.collection(collection).find().toArray();
     });
-    return products;
-  } 
-  catch (error) {
-    console.error('Error retrieving products:', error);
-    throw new Error('Error retrieving products');
+    return documents;
+  } catch (error) {
+    console.error(`Error retrieving documents from collection "${collection}":`, error);
+    throw new Error(`Error retrieving documents from collection "${collection}"`);
   }
 }
 
-async function getProductByName(nameItem) {
+async function getItemByNameFromCollection(collection, name) {
   try {
-    let product;
+    let document;
     await CC.connectAndClose(async (database) => {
-      const Products = database.collection('Products');
-      product = await Products.findOne({ name: nameItem });
+      const Collection = database.collection(collection);
+      document = await Collection.findOne({ name });
     });
-    return product;
-  } 
-  catch (error) {
-    console.error(`Error retrieving ${nameItem}:`, error);
-    throw new Error(`Error retrieving ${nameItem}`);
+    return document;
+  } catch (error) {
+    console.error(`Error retrieving "${name}" from collection "${collection}":`, error);
+    throw new Error(`Error retrieving "${name}" from collection "${collection}"`);
   }
 }
 
-exports.getAllProducts = getAllProducts;
-exports.getProductByName = getProductByName;
-
+exports.getAllDocumentsFromCollection = getAllDocumentsFromCollection;
+exports.getItemByNameFromCollection = getItemByNameFromCollection;
