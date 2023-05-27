@@ -19,8 +19,7 @@ async function getItemByNameFromCollection(collection, name) {
   try {
     let document;
     await CC.connectAndClose(async (database) => {
-      const Collection = database.collection(collection);
-      document = await Collection.findOne({ name });
+      document = await database.collection(collection).findOne({ name });
     });
     return document;
   } catch (error) {
