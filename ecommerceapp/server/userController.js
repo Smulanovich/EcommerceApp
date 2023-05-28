@@ -6,7 +6,7 @@ async function getUserByEmail(emailAddress) {
     try {
         let user;
         await CC.connectAndClose(async (database) => {
-        user = await database.collection('Users').findOne({ email: emailAddress });
+        user = await database.collection('Users').findOne({ email: emailAddress },);
         });
         return user;
     } catch (error) {
@@ -43,6 +43,24 @@ async function insertUser(email, firstName, lastName, password) {
   }
 }
 
+async function authenticateLogin(userEmail, userPassword) {
+  try {
+    const collection = database.collection('Users');
+    const user = await collection.findOne(
+      { email: userEmail, password: userPassword },
+      { projection: { email: 1 } }
+    );
+    
+    if (user) {
+      return user.email;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error('Error authenticating login:', error);
+    throw new Error('Error authenticating login');
+  }
+}
 
 async function addFavProduct(userEmail, product) {
     try {
@@ -94,9 +112,11 @@ async function addFavProduct(userEmail, product) {
     }
   }
   
+  
 
 exports.insertUser = insertUser;
 exports.getUserByEmail = getUserByEmail;
+exports.authenticateLogin = authenticateLogin;
 exports.addFavProduct = addFavProduct;
 exports.deleteFavProduct = deleteFavProduct;
 exports.addOrderToHistory = addOrderToHistory;
