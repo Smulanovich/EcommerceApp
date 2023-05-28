@@ -2,11 +2,11 @@
 
 const CC = require('./connectAndClose');
 
-async function getAllDocumentsFromCollection(collection) {
+async function getAllProductsFromCollection(collection) {
   try {
     let documents;
     await CC.connectAndClose(async (database) => {
-      documents = await database.collection(collection).find().toArray();
+      documents = await database.collection(collection).find({}, { reviews: 0 }).toArray();
     });
     return documents;
   } catch (error) {
@@ -19,7 +19,7 @@ async function getItemByNameFromCollection(collection, name) {
   try {
     let document;
     await CC.connectAndClose(async (database) => {
-      document = await database.collection(collection).findOne({ name });
+      document = await database.collection(collection).findOne({ name }, { reviews: 0 });
     });
     return document;
   } catch (error) {
@@ -28,5 +28,5 @@ async function getItemByNameFromCollection(collection, name) {
   }
 }
 
-exports.getAllDocumentsFromCollection = getAllDocumentsFromCollection;
+exports.getAllProductsFromCollection = getAllProductsFromCollection;
 exports.getItemByNameFromCollection = getItemByNameFromCollection;

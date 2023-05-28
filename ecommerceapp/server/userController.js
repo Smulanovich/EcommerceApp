@@ -17,6 +17,13 @@ async function getUserByEmail(emailAddress) {
 
 async function insertUser(email, firstName, lastName, password) {
   try {
+    // Check if a user with the same email already exists
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) {
+      console.log('User with the same email already exists.');
+      return; // Do not create the user
+    }
+
     const user = {
       email: email,
       firstName: firstName,
@@ -36,6 +43,7 @@ async function insertUser(email, firstName, lastName, password) {
   }
 }
 
+
 async function addFavProduct(userEmail, product) {
     try {
       // Add the product to the favoriteProducts array
@@ -53,7 +61,42 @@ async function addFavProduct(userEmail, product) {
     }
   }
   
+  async function deleteFavProduct(userEmail, product) {
+    try {
+      // Remove the product from the favoriteProducts array
+      await CC.connectAndClose(async (database) => {
+        await database.collection('Users').updateOne(
+          { email: userEmail },
+          { $pull: { favoriteProducts: product } }
+        );
+      });
+  
+      console.log('Product removed from favorites.');
+    } catch (error) {
+      console.error('Error removing favorite product:', error);
+      throw new Error('Error removing favorite product');
+    }
+  }
+  
+  async function addOrderToHistory(userEmail, order) {
+    try {
+      await CC.connectAndClose(async (database) => {
+        await database.collection('Users').updateOne(
+          { email: userEmail },
+          { $push: { orderHistory: order } }
+        );
+      });
+  
+      console.log('Order added to order history successfully.');
+    } catch (error) {
+      console.error('Error adding order to order history:', error);
+      throw new Error('Error adding order to order history');
+    }
+  }
+  
 
 exports.insertUser = insertUser;
 exports.getUserByEmail = getUserByEmail;
 exports.addFavProduct = addFavProduct;
+exports.deleteFavProduct = deleteFavProduct;
+exports.addOrderToHistory = addOrderToHistory;

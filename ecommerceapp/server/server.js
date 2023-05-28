@@ -10,8 +10,7 @@ app.use(cors());
 // API endpoint for retrieving documents from a specific collection
 app.get('/api/:collection', async (req, res) => {
   try {
-    const collection = req.params.collection;
-    const documents = await productController.getAllDocumentsFromCollection(collection);
+    const documents = await productController.getAllProductsFromCollection(req.params.collection);
     res.json(documents);
   } catch (error) {
     console.error(`Error retrieving documents from collection "${req.params.collection}":`, error);
@@ -22,9 +21,7 @@ app.get('/api/:collection', async (req, res) => {
 // API endpoint for retrieving a document by name within a specific collection
 app.get('/api/:collection/:name', async (req, res) => {
   try {
-    const collection = req.params.collection;
-    const name = req.params.name;
-    const document = await productController.getItemByNameFromCollection(collection, name);
+    const document = await productController.getItemByNameFromCollection(req.params.collection, req.params.name);
     if (!document) {
       return res.status(404).json({ error: 'Document not found' });
     }
