@@ -22,7 +22,7 @@ function Products({ productType }) {
 
   useEffect(() => {
     // Make the HTTP request to fetch the products
-    axios.get(`http://localhost:4000/api/${productType}`)
+    axios.get(`http://localhost:4000/api/products/${productType}`)
       .then((response) => {
         setProducts(response.data);
       })

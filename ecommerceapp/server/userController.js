@@ -2,17 +2,17 @@
 
 const CC = require('./connectAndClose');
 
-async function getUserByEmail(emailAddress) {
-    try {
-        let user;
-        await CC.connectAndClose(async (database) => {
-        user = await database.collection('Users').findOne({ email: emailAddress },);
-        });
-        return user;
-    } catch (error) {
-        console.error(`Error retrieving user ${emailAddress}:`, error);
-        throw new Error(`Error retrieving user ${emailAddress}`);
-    }
+async function getUserByEmail(email) {
+  try {
+    let user;
+    await CC.connectAndClose(async (database) => {
+      user = await database.collection('Users').findOne({ email });
+    });
+    return user;
+  } catch (error) {
+    console.error(`Error retrieving user ${emailAddress}:`, error);
+    throw new Error(`Error retrieving user ${emailAddress}`);
+  }
 }
 
 async function insertUser(email, firstName, lastName, password) {
