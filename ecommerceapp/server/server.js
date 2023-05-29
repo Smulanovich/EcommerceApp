@@ -106,7 +106,7 @@ app.get('/api/users/:email', async (req, res) => {
 });
 
 // API endpoint for inserting a new user
-app.post('/api/users', async (req, res) => {
+app.post('/api/insertUser', async (req, res) => {
   try {
     const { email, firstName, lastName, password } = req.body;
 
