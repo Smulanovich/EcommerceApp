@@ -127,7 +127,7 @@ app.post('/api/users', async (req, res) => {
 });
 
 // API endpoint for adding a favorite product for a user
-app.post('/api/users/favorite', async (req, res) => {
+app.post('/api/users/favorite/add', async (req, res) => {
   try {
     const { userEmail, product } = req.body;
 
@@ -170,6 +170,37 @@ app.post('/api/users/order/history', async (req, res) => {
     res.status(500).json({ error: 'Error adding order to order history' });
   }
 });
+
+// API endpoint for retrieving favorite products of a user
+app.get('/api/users/:email/favorites', async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    // Call the getFavProducts function to retrieve the favorite products
+    const favoriteProducts = await userController.getFavProducts(email);
+
+    res.json(favoriteProducts);
+  } catch (error) {
+    console.error('Error retrieving favorite products:', error);
+    res.status(500).json({ error: 'Error retrieving favorite products' });
+  }
+});
+
+// API endpoint for retrieving order history of a user
+app.get('/api/users/:email/history', async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    // Call the getOrderHistory function to retrieve the order history
+    const orderHistory = await userController.getOrderHistory(email);
+
+    res.json(orderHistory);
+  } catch (error) {
+    console.error('Error retrieving order history:', error);
+    res.status(500).json({ error: 'Error retrieving order history' });
+  }
+});
+
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {

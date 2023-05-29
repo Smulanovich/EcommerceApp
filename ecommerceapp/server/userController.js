@@ -117,8 +117,42 @@ async function addOrderToHistory(userEmail, order) {
     throw new Error('Error adding order to order history');
   }
 }
-  
-  
+    
+// Function to get favorite products of a user
+async function getFavProducts(userEmail) {
+  try {
+    let favProducts;
+    await CC.connectAndClose(async (database) => {
+      favProducts = await database.collection('Users').findOne(
+        { email: userEmail },
+        { projection: { favoriteProducts: 1 } }
+      );
+    });
+
+    return favProducts ? favProducts.favoriteProducts : [];
+  } catch (error) {
+    console.error('Error retrieving favorite products:', error);
+    throw new Error('Error retrieving favorite products');
+  }
+}
+
+// Function to get order history of a user
+async function getOrderHistory(userEmail) {
+  try {
+    let orderHistory;
+    await CC.connectAndClose(async (database) => {
+      orderHistory = await database.collection('Users').findOne(
+        { email: userEmail },
+        { projection: { orderHistory: 1 } }
+      );
+    });
+
+    return orderHistory ? orderHistory.orderHistory : [];
+  } catch (error) {
+    console.error('Error retrieving order history:', error);
+    throw new Error('Error retrieving order history');
+  }
+}
 
 exports.insertUser = insertUser;
 exports.getUserByEmail = getUserByEmail;
@@ -126,3 +160,5 @@ exports.authenticateLogin = authenticateLogin;
 exports.addFavProduct = addFavProduct;
 exports.deleteFavProduct = deleteFavProduct;
 exports.addOrderToHistory = addOrderToHistory;
+exports.getFavProducts = getFavProducts;
+exports.getOrderHistory = getOrderHistory;
