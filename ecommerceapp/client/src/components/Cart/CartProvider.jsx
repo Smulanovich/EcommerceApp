@@ -1,8 +1,11 @@
 import React, { createContext, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 
 export const CartContext = createContext();
 
-function CartProvider ({ children }) {
+const stripePromise = loadStripe("YOUR_STRIPE_PUBLISHABLE_KEY");
+
+function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (item) => {
@@ -21,6 +24,32 @@ function CartProvider ({ children }) {
     return cartItems.length;
   };
 
+  const calculateTotalAmount = () => {
+    return cartItems.reduce((total, item) => total + item.price, 0);
+  };
+
+  const checkout = async () => {
+    const stripe = await stripePromise;
+
+    const response = await fetch("/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount: calculateTotalAmount() }),
+    });
+
+    const session = await response.json();
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      // Handle error
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -29,11 +58,13 @@ function CartProvider ({ children }) {
         removeFromCart,
         clearCart,
         getCartSize,
+        calculateTotalAmount,
+        checkout,
       }}
     >
       {children}
     </CartContext.Provider>
   );
-};
+}
 
 export default CartProvider;
