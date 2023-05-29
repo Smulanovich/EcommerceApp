@@ -43,19 +43,17 @@ async function insertUser(email, firstName, lastName, password) {
   }
 }
 
-async function authenticateLogin(userEmail, userPassword) {
+async function authenticateLogin(email, password) {
   try {
-    const collection = database.collection('Users');
-    const user = await collection.findOne(
-      { email: userEmail, password: userPassword },
-      { projection: { email: 1 } }
-    );
-    
-    if (user) {
-      return user.email;
-    } else {
-      return null;
-    }
+    let user;
+    await CC.connectAndClose(async (database) => {
+      user =  await database.collection('Users').findOne(
+        { email: email, password: password },
+        { projection: { email: 1 } }
+      );
+    });
+
+    return user ? user.email : null;
   } catch (error) {
     console.error('Error authenticating login:', error);
     throw new Error('Error authenticating login');
@@ -63,54 +61,62 @@ async function authenticateLogin(userEmail, userPassword) {
 }
 
 async function addFavProduct(userEmail, product) {
-    try {
+  try {
+    await CC.connectAndClose(async (database) => {
+      const collection = database.collection('Users');
+      // Check if the product is already in the user's favoriteProducts array
+      const user = await collection.findOne({ email: userEmail });
+      if (user.favoriteProducts.includes(product)) {
+        console.log('Product already exists in favorites.');
+        return; // Do not add the product again
+      }
+
       // Add the product to the favoriteProducts array
-      await CC.connectAndClose(async (database) => {
-        await database.collection('Users').updateOne(
-          { email: userEmail},
-          { $addToSet: { favoriteProducts: product } }
-        );
-      });
-  
+      await collection.updateOne(
+        { email: userEmail },
+        { $addToSet: { favoriteProducts: product } }
+      );
+
       console.log('Product added as a favorite.');
-    } catch (error) {
-      console.error('Error adding favorite product:', error);
-      throw new Error('Error adding favorite product');
-    }
+    });
+  } catch (error) {
+    console.error('Error adding favorite product:', error);
+    throw new Error('Error adding favorite product');
   }
-  
-  async function deleteFavProduct(userEmail, product) {
-    try {
+}
+
+async function deleteFavProduct(userEmail, product) {
+  try {
+    await CC.connectAndClose(async (database) => {
       // Remove the product from the favoriteProducts array
-      await CC.connectAndClose(async (database) => {
-        await database.collection('Users').updateOne(
-          { email: userEmail },
-          { $pull: { favoriteProducts: product } }
-        );
-      });
-  
+      await database.collection('Users').updateOne(
+        { email: userEmail },
+        { $pull: { favoriteProducts: product } }
+      );
+
       console.log('Product removed from favorites.');
-    } catch (error) {
-      console.error('Error removing favorite product:', error);
-      throw new Error('Error removing favorite product');
-    }
+    });
+  } catch (error) {
+    console.error('Error removing favorite product:', error);
+    throw new Error('Error removing favorite product');
   }
-  
-  async function addOrderToHistory(userEmail, order) {
-    try {
-      await CC.connectAndClose(async (database) => {
-        await database.collection('Users').updateOne(
-          { email: userEmail },
-          { $push: { orderHistory: order } }
-        );
-      });
-  
+}
+
+async function addOrderToHistory(userEmail, order) {
+  try {
+    await CC.connectAndClose(async (database) => {
+      await database.collection('Users').updateOne(
+        { email: userEmail },
+        { $push: { orderHistory: order } }
+      );
+
       console.log('Order added to order history successfully.');
-    } catch (error) {
-      console.error('Error adding order to order history:', error);
-      throw new Error('Error adding order to order history');
-    }
+    });
+  } catch (error) {
+    console.error('Error adding order to order history:', error);
+    throw new Error('Error adding order to order history');
   }
+}
   
   
 
