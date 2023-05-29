@@ -1,5 +1,7 @@
 
-
+body{
+    margin:0;
+}
 .overallSignIn{
     text-align:center;
     display:flex;
@@ -7,7 +9,7 @@
     align-items:center;
     justify-content: center;
     color:white;
-    background-image: linear-gradient(79deg, #bfcfec, #3c4ce0 48%, #bfcfec);
+    background-image: linear-gradient(79deg, #d2cece, #3c4ce0 48%, #d2cece);
 }
 
 .overallSignIn .auth-form-container, .overallSignIn .login-form, .overallSignIn .register-form{
