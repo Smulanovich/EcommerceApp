@@ -41,7 +41,7 @@ const Navbar = () => {
                     </div>
                     <div className="icons">
                         <SearchOutlinedIcon/>
-                        <AccountCircleOutlinedIcon/>
+                        <Link className="link" to="/account"><AccountCircleOutlinedIcon/></Link>
                         <GradeOutlinedIcon/>
                         <div className="cartIcon">
                             <Link className="link" to="/Cart"><LocalMallOutlinedIcon/></Link>

@@ -9,12 +9,13 @@ import Products from './pages/Products/Products.jsx';
 import CartProvider from './pages/Cart/CartProvider.jsx'
 import UserProvider from './pages/User/UserProvider.jsx';
 import User from './pages/User/User.jsx';
+import Register from './pages/User/Forms/Register';
 
 const Layout = () => {
   return (
     <div className="EcommerceApp">
       <Navbar />
-      <Outlet />
+        <Outlet />
       <Footer />
     </div>
   );
@@ -34,21 +35,17 @@ const router = createBrowserRouter([
         element: <Products />,
       },
       {
-        path: '/products/CandyBar',
-        element: <ProductDisplay productType={"CandyBar"} />,
-      },
-      {
-        path: '/products/CandyCorn',
-        element: <ProductDisplay productType={"CandyCorn"} />,
-      },
-      {
-        path: '/products/CandyStick',
-        element: <ProductDisplay productType={"CandyStick"} />,
+        path: '/products/:productType',
+        element: <ProductDisplay />,
       },
       {
         path: '/account',
         element: <User />,
       },
+      {
+        path: '/account/register',
+        element: <Register />,
+      }
     ],
   },
 ]);

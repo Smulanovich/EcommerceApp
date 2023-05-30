@@ -3,14 +3,14 @@ import React, { createContext, useState } from "react";
 export const UserContext = createContext();
 
 function UserProvider({ children }) {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
     
     const login = (user) => {
         setUser(user);
     };
     
     const logout = () => {
-        setUser({});
+        setUser(null);
     };
 
     const returnUser = () => {
@@ -19,14 +19,14 @@ function UserProvider({ children }) {
     
     return (
         <UserContext.Provider
-        value={{
-            user,
-            login,
-            logout,
-            returnUser
-        }}
+            value={{
+                user,
+                login,
+                logout,
+                returnUser
+            }}
         >
-        {children}
+            {children}
         </UserContext.Provider>
     );
 }

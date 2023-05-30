@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { CartContext } from "../Cart/CartProvider.jsx";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const CandyDisplay = ({ product }) => {
   const { addToCart } = useContext(CartContext);
@@ -16,20 +16,22 @@ const CandyDisplay = ({ product }) => {
   );
 };
 
-function Products({ productType }) {
+function ProductDisplay() {
   const [products, setProducts] = useState([]);
   const location = useLocation();
+  const { productType } = useParams();
 
   useEffect(() => {
     // Make the HTTP request to fetch the products
-    axios.get(`http://localhost:4000/api/products/${productType}`)
+    axios
+      .get(`http://localhost:4000/api/products/${productType}`)
       .then((response) => {
         setProducts(response.data);
       })
       .catch((error) => {
         console.error("Error retrieving products:", error);
       });
-  }, [productType,location]);
+  }, [productType, location]);
 
   if (!products) {
     console.error("Error: Items could not be retrieved.");
@@ -51,4 +53,4 @@ function Products({ productType }) {
   );
 }
 
-export default Products;
+export default ProductDisplay;
