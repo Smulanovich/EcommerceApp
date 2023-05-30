@@ -7,7 +7,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Products from './pages/Products/Products.jsx';
 import CartProvider from './pages/Cart/CartProvider.jsx'
-import UserProvider from './pages/User/userProvider.jsx';
+import UserProvider from './pages/User/UserProvider.jsx';
 import User from './pages/User/User.jsx';
 
 const Layout = () => {

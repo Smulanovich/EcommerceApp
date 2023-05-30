@@ -1,7 +1,7 @@
 // User.jsx
 
 import React from 'react';
-import { UserContext } from './userProvider';
+import { UserContext } from './UserProvider.jsx';
 
 const User = () => {
     const { user } = useContext(UserContext);
