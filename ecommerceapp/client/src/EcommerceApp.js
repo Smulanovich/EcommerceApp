@@ -6,6 +6,7 @@ import Home from './pages/Home/Home.jsx';
 import Products from './pages/Products/Products.jsx';
 import Product from './pages/Product/Product.jsx';
 import Cart from './components/Cart/Cart.jsx';
+import Checkout from './pages/Checkout/Checkout.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: '/cart/:id',
         element: <Cart/>
+      },
+      {
+        path: '/checkout/:id',
+        element: <Checkout/>
       }
     ]
   }

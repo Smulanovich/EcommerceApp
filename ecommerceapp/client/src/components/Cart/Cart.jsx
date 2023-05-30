@@ -1,5 +1,5 @@
 import { Divider } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";import { Link } from "react-router-dom";
 import "./Cart.css"
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {useSelector} from "react-redux"
@@ -73,7 +73,11 @@ const Cart = () => {
                 <span>SUBTOTAL</span>
                 <span>$TBD</span>
             </div>
-            <button>PROCEED TO CHECKOUT</button>
+            <button>
+            <Link className="link" to="/Checkout/Checkout.jsx">
+                PROCEED TO CHECKOUT
+            </Link>
+            </button>
             <span className="reset">Reset Cart</span>
         </div>
     );

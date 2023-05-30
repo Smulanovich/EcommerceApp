@@ -1,0 +1,49 @@
+import React from "react";
+
+const CartSummaryPage = () => {
+  // Example cart items
+  const cartItems = [
+    { id: 1, name: "Product 1", price: 10 },
+    { id: 2, name: "Product 2", price: 15 },
+    { id: 3, name: "Product 3", price: 20 },
+  ];
+
+  const calculateTotal = () => {
+    // Calculate the total price of all items in the cart
+    const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
+    return totalPrice;
+  };
+
+  return (
+    <div className="cart-summary-page">
+      <h1>Cart Summary</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cartItems.map((item) => (
+            <tr key={item.id}>
+              <td>{item.name}</td>
+              <td>${item.price}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <strong>Total</strong>
+            </td>
+            <td>${calculateTotal()}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <button>Checkout</button>
+    </div>
+  );
+};
+
+export default CartSummaryPage;

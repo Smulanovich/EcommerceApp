@@ -64,7 +64,7 @@ const Navbar = () => {
               type="text"
               value={searchQuery}
               onChange={handleSearchInputChange}
-              placeholder="Search..."
+              placeholder="What are you looking for?"
             />
             <div className="searchButton" onClick={performSearch}>
               <SearchOutlinedIcon className="searchIcon" />
