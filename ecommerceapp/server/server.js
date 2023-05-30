@@ -16,7 +16,8 @@ app.get('/api/products/:collection', async (req, res) => {
   try {
     const documents = await productController.getAllProductsFromCollection(req.params.collection);
     res.json(documents);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error(`Error retrieving documents from collection "${req.params.collection}":`, error);
     res.status(500).json({ error: 'Error retrieving documents' });
   }
@@ -30,7 +31,8 @@ app.get('/api/products/:collection/:name', async (req, res) => {
       return res.status(404).json({ error: 'Document not found' });
     }
     res.json(document);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error(`Error retrieving document "${req.params.name}" from collection "${req.params.collection}":`, error);
     res.status(500).json({ error: 'Error retrieving document' });
   }
@@ -45,7 +47,8 @@ app.get('/api/reviews/:collection/:name', async (req, res) => {
     const reviews = await productController.getReviewsFromProduct(collection, name);
 
     res.json(reviews);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error(`Error retrieving reviews:`, error);
     res.status(500).json({ error: 'Error retrieving reviews' });
   }
@@ -61,9 +64,24 @@ app.post('/api/reviews/:collection/:name', async (req, res) => {
     await productController.addReviewToProduct(collection, name, authorEmail, comment);
 
     res.json({ message: 'Review added successfully' });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error adding review:', error);
     res.status(500).json({ error: 'Error adding review' });
+  }
+});
+
+// Api checkpoint for searching products
+app.get('/api/products/search', async (req, res) => {
+  try {
+    const { productName } = req.body;
+    const productSearched = await productController.serchForCandy(productName);
+
+    res.json(productSearched);
+  }
+  catch (error) {
+    console.error('Error searching for product:', error);
+    res.status(500).json({ error: 'Error searching for product' });
   }
 });
 
@@ -80,7 +98,8 @@ app.post('/api/login', async (req, res) => {
     } else {
       res.json(null);
     }
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error authenticating login:', error);
     res.status(500).json({ error: 'Error authenticating login' });
   }
@@ -99,7 +118,8 @@ app.get('/api/users/:email', async (req, res) => {
     }
 
     res.json(user);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error(`Error retrieving user:`, error);
     res.status(500).json({ error: 'Error retrieving user' });
   }
@@ -120,7 +140,8 @@ app.post('/api/insertUser', async (req, res) => {
     await userController.insertUser(email, firstName, lastName, password);
 
     res.status(201).json({ message: 'User inserted successfully' });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error inserting user:', error);
     res.status(500).json({ error: 'Error inserting user' });
   }
@@ -135,7 +156,8 @@ app.post('/api/users/favorite/add', async (req, res) => {
     await userController.addFavProduct(userEmail, product);
 
     res.json({ message: 'Product added as a favorite.' });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error adding favorite product:', error);
     res.status(500).json({ error: 'Error adding favorite product' });
   }
@@ -150,7 +172,8 @@ app.post('/api/users/favorite/delete', async (req, res) => {
     await userController.deleteFavProduct(userEmail, product);
 
     res.json({ message: 'Product removed from favorites' });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error removing favorite product:', error);
     res.status(500).json({ error: 'Error removing favorite product' });
   }
@@ -165,7 +188,8 @@ app.post('/api/users/order/history', async (req, res) => {
     await userController.addOrderToHistory(userEmail, order);
 
     res.json({ message: 'Order added to order history successfully' });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error adding order to order history:', error);
     res.status(500).json({ error: 'Error adding order to order history' });
   }
@@ -180,7 +204,8 @@ app.get('/api/users/:email/favorites', async (req, res) => {
     const favoriteProducts = await userController.getFavProducts(email);
 
     res.json(favoriteProducts);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error retrieving favorite products:', error);
     res.status(500).json({ error: 'Error retrieving favorite products' });
   }
@@ -195,7 +220,8 @@ app.get('/api/users/:email/history', async (req, res) => {
     const orderHistory = await userController.getOrderHistory(email);
 
     res.json(orderHistory);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error retrieving order history:', error);
     res.status(500).json({ error: 'Error retrieving order history' });
   }

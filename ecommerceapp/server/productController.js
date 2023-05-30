@@ -59,7 +59,32 @@ async function addReviewToProduct(collectionName, productName, authorEmail, comm
   }
 }
 
+async function serchForCandy(name) { 
+  const collections = ['CandyBar', 'CandyCorn', 'CandyStick'];
+
+  try {
+    let document = null;
+
+    await CC.connectAndClose(async (database) => {
+      for (const collection of collections) {
+        document = await database.collection(collection).findOne({ name });
+
+        if (document) {
+          break; // Item found, exit the loop
+        }
+      }
+    });
+
+    return document;
+  } catch (error) {
+    console.error(`Error retrieving "${name}" from collections:`, error);
+    throw new Error(`Error retrieving "${name}" from collections`);
+  }
+}
+
+
 exports.addReviewToProduct = addReviewToProduct;
 exports.getAllProductsFromCollection = getAllProductsFromCollection;
 exports.getItemByNameFromCollection = getItemByNameFromCollection;
 exports.getReviewsFromProduct = getReviewsFromProduct;
+exports.serchForCandy = serchForCandy;
