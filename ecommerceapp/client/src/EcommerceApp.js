@@ -10,13 +10,14 @@ import CartProvider from './pages/Cart/CartProvider.jsx'
 import UserProvider from './pages/User/UserProvider.jsx';
 import User from './pages/User/User.jsx';
 import Register from './pages/User/Forms/Register';
+import Cart from './components/Cart/Cart.jsx';
+import Checkout from './pages/Checkout/Checkout.jsx';
 
 const Layout = () => {
   return (
     <div className="EcommerceApp">
       <Navbar />
-        <Outlet />
-      <Footer />
+      <Outlet />
     </div>
   );
 };
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
       {
         path: '/account/register',
         element: <Register />,
+      },
+      {
+        path: '/cart/:id',
+        element: <Cart/>
+      },
+      {
+        path: '/checkout/:id',
+        element: <Checkout/>
       }
     ],
   },

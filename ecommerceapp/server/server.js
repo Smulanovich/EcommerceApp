@@ -94,7 +94,7 @@ app.post('/api/login', async (req, res) => {
   try {
     const authenticatedUser = await userController.authenticateLogin(email, password);
     if (authenticatedUser) {
-      res.json({ email: authenticatedUser });
+      res.json(authenticatedUser);
     } else {
       res.json(null);
     }

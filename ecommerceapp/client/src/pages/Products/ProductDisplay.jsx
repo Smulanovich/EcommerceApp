@@ -45,9 +45,7 @@ function ProductDisplay() {
   return (
     <div className="allProducts">
       {products.map((product) => (
-        <div key={product.id}>
           <CandyDisplay product={product} />
-        </div>
       ))}
     </div>
   );
