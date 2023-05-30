@@ -46,7 +46,8 @@ function CartProvider({ children }) {
     });
 
     if (result.error) {
-      // Handle error
+      console.log(result.error.message);
+      return;
     }
   };
 

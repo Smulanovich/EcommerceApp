@@ -2,11 +2,13 @@
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import './EcommerceApp.css';
 import Home from './pages/Home/Home.jsx';
-import ProductDisplay from './pages/Products/ProductDisplay';
+import ProductDisplay from './pages/Products/ProductDisplay.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import Products from './pages/Products/Products';
-import CartProvider from './components/Cart/CartProvider.jsx'
+import Products from './pages/Products/Products.jsx';
+import CartProvider from './pages/Cart/CartProvider.jsx'
+import UserProvider from './pages/User/userProvider.jsx';
+import User from './pages/User/User.jsx';
 
 const Layout = () => {
   return (
@@ -43,6 +45,10 @@ const router = createBrowserRouter([
         path: '/products/CandyStick',
         element: <ProductDisplay productType={"CandyStick"} />,
       },
+      {
+        path: '/account',
+        element: <User />,
+      },
     ],
   },
 ]);
@@ -51,11 +57,13 @@ function EcommerceApp() {
 
   return (
     <div className="EcommerceApp">
+      <UserProvider>
       <CartProvider>
         <RouterProvider router={router}>
           <Outlet/>
         </RouterProvider>
       </CartProvider>
+      </UserProvider>
     </div>
   );
 }

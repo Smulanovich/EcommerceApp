@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { CartContext } from "../../components/Cart/CartProvider.jsx";
+import { CartContext } from "../Cart/CartProvider.jsx";
 import { useLocation } from "react-router-dom";
 
 const CandyDisplay = ({ product }) => {

@@ -5,7 +5,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import "./Navbar.css"; 
-import { CartContext } from "../Cart/CartProvider.jsx";
+import { CartContext } from "../../pages/Cart/CartProvider.jsx";
 
 
 const Navbar = () => {
