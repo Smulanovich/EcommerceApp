@@ -1,14 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";import { Link } from "react-router-dom";
 import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import "./Navbar.css"; 
+import Cart from "../Cart/Cart";
 
 
 const Navbar = () => {
+  const [open,setOpen] = useState(false)
+
   return (
     <div className="Navbar">
         <div className="wrapper">   
@@ -40,13 +42,14 @@ const Navbar = () => {
                     <SearchOutlinedIcon/>
                     <AccountCircleOutlinedIcon/>
                     <GradeOutlinedIcon/>
-                    <div className="cartIcon">
-                        <LocalMallOutlinedIcon/>
-                        <span>0</span>
+                    <div className="cartIcon" onClick={()=>setOpen(!open)}>
+                            <LocalMallOutlinedIcon/>
+                             <span>0</span>
                     </div>
                 </div>
             </div>
         </div>
+        {open && <Cart/>}
     </div>
   );
 };
