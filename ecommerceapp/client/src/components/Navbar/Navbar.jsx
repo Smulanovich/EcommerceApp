@@ -10,48 +10,97 @@ import Cart from "../Cart/Cart";
 
 const Navbar = () => {
   const [open,setOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const performSearch = () => {
+    /*
+    const filteredResults = data.filter((item) =>
+      item.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    return filteredResults;
+    */
+  };
+
+  const handleSearchIconClick = () => {
+    setShowSearchBar(!showSearchBar);
+  };
+
+  
   return (
     <div className="Navbar">
-        <div className="wrapper">   
-            <div className="left">
-                <div className="item">
-                    <Link className="link" to="/products/CandyBars">Candy Bars</Link>
-                </div>
-                <div className="item">
-                    <Link className="link" to="/products/CandyCorn">Candy Corn</Link>
-                </div>
-                <div className="item">
-                    <Link className="link" to="/products/CandySticks">Candy Sticks</Link>
-                </div>
-            </div>
-            <div className="center">
-                <Link className="link" to="/">Candyland</Link>
-            </div>
-            <div className="right">
-                <div className="item">
-                    <Link className="link" to="/">Homepage</Link>
-                </div>
-                <div className="item">
-                    <Link className="link" to="/">About</Link>
-                </div>
-                <div className="item">
-                    <Link className="link" to="/">Contact</Link>
-                </div>
-                <div className="icons">
-                    <SearchOutlinedIcon/>
-                    <AccountCircleOutlinedIcon/>
-                    <GradeOutlinedIcon/>
-                    <div className="cartIcon" onClick={()=>setOpen(!open)}>
-                            <LocalMallOutlinedIcon/>
-                             <span>0</span>
-                    </div>
-                </div>
-            </div>
+      <div className="wrapper">
+        <div className="left">
+          <div className="item">
+            <Link className="link" to="/products/CandyBars">
+              Candy Bars
+            </Link>
+          </div>
+          <div className="item">
+            <Link className="link" to="/products/CandyCorn">
+              Candy Corn
+            </Link>
+          </div>
+          <div className="item">
+            <Link className="link" to="/products/CandySticks">
+              Candy Sticks
+            </Link>
+          </div>
         </div>
-        {open && <Cart/>}
+        <div className="center">
+          <Link className="link" to="/">
+            Candyland
+          </Link>
+        </div>
+        <div className="right">
+          {/* Search Bar */}
+          <div className="searchBar">
+            <input
+              className="searchInput"
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+              placeholder="Search..."
+            />
+            <div className="searchButton" onClick={performSearch}>
+              <SearchOutlinedIcon className="searchIcon" />
+            </div>
+          </div>
+          {/* End of Search Bar */}
+          {/* <div className="item">
+            <Link className="link" to="/">
+              Homepage
+            </Link>
+          </div> */}
+          <div className="item">
+            <Link className="link" to="/">
+              About
+            </Link>
+          </div>
+          <div className="item">
+            <Link className="link" to="/">
+              Contact
+            </Link>
+          </div>
+          <div className="icons">
+            {/* <SearchOutlinedIcon /> */}
+            <AccountCircleOutlinedIcon />
+            <GradeOutlinedIcon />
+            <div className="cartIcon" onClick={() => setOpen(!open)}>
+              <LocalMallOutlinedIcon />
+              <span>0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {open && <Cart />}
     </div>
   );
 };
 
 export default Navbar;
+
