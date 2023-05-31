@@ -9,7 +9,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Register from './pages/SignIn/Register.jsx';
 import Login from './pages/SignIn/Login.jsx';
-import Reviews from './pages/Reviews/Reviews.jsx';
+
 
 
 
