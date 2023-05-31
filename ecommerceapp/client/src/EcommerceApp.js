@@ -1,64 +1,79 @@
-// EcommerceApp.js
-
-import {createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
+//import React, { useState } from 'react';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import './EcommerceApp.css';
 import Home from './pages/Home/Home.jsx';
-import Products from './pages/Products/Products.jsx';
-import Product from './pages/Product/Product.jsx';
+import ProductDisplay from './pages/Products/ProductDisplay.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Register from './pages/SignIn/Register.jsx';
 import Login from './pages/SignIn/Login.jsx';
 
 
-
-
+import Products from './pages/Products/Products.jsx';
+import CartProvider from './pages/Cart/CartProvider.jsx'
+import UserProvider from './pages/User/UserProvider.jsx';
+import User from './pages/User/User.jsx';
+import Register from './pages/User/Forms/Register';
+import Cart from './components/Cart/Cart.jsx';
+import Checkout from './pages/Checkout/Checkout.jsx';
 
 const Layout = () => {
   return (
-    <div className='EcommerceApp'>
-      <Navbar/>
-      <Outlet/>
-      <Footer/>
+    <div className="EcommerceApp">
+      <Navbar />
+      <Outlet />
     </div>
   );
-}
+};
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout/>,
+    element: <Layout />,
     children: [
       {
         path: '/',
-        element: <Home/>,
+        element: <Home />,
       },
       {
-        path: '/products/:id',
-        element: <Products/>,
+        path: '/products',
+        element: <Products />,
       },
       {
-        path: '/product/:id',
-        element: <Product/>
+        path: '/products/:productType',
+        element: <ProductDisplay />,
       },
       {
-        path:'/SignIn/:action',
-        element: <Register />
-        //errorElement: <h1>Page not Found</h1>
+        path: '/account',
+        element: <User />,
       },
       {
-        path:'/SignIn/Login',
-        element: <Login />
+        path: '/account/register',
+        element: <Register />,
+      },
+      {
+        path: '/cart/:id',
+        element: <Cart/>
+      },
+      {
+        path: '/checkout/:id',
+        element: <Checkout/>
       }
-    ]
-  }
+    ],
+  },
 ]);
 
-
 function EcommerceApp() {
+
   return (
     <div className="EcommerceApp">
-      <RouterProvider router={router}/>
+      <UserProvider>
+      <CartProvider>
+        <RouterProvider router={router}>
+          <Outlet/>
+        </RouterProvider>
+      </CartProvider>
+      </UserProvider>
     </div>
   );
 }

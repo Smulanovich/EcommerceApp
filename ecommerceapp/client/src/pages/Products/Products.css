@@ -1,0 +1,12 @@
+.Products {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Products .ProductLink {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: inherit;
+    text-decoration: none;
+  }
+  
