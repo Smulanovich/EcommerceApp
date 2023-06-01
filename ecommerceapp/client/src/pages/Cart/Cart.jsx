@@ -1,8 +1,9 @@
 import { Divider } from "@mui/material";
-import React, { useState } from "react";import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";import { Link } from "react-router-dom";
 import "./Cart.css"
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {useSelector} from "react-redux"
+import { CartContext } from "./CartProvider";
 const Cart = () => {
 
     const products = useSelector(state=>state.cart.products)

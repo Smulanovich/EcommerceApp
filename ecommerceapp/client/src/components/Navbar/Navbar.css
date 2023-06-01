@@ -17,13 +17,17 @@
 .left{
     display: flex;
     align-items: center;
+    text-align: center;
     gap: 25px;
 }
 
 .center{
+    display: flex;
     font-size: 32px;
     letter-spacing: 3px;
     align-items: center;
+    text-align: center;
+    font-weight: bold;
 }
 
 .right{

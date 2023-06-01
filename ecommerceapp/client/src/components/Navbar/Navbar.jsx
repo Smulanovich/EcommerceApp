@@ -33,7 +33,13 @@ const Navbar = () => {
   return (
     <div className="Navbar">
       <div className="wrapper">
+      <div className="center">
+          <Link className="link" to="/">
+            Candyland
+          </Link>
+        </div>
         <div className="left">
+        </div>
           <div className="item">
             <Link className="link" to="/products/CandyBars">
               Candy Bars
@@ -49,12 +55,6 @@ const Navbar = () => {
               Candy Sticks
             </Link>
           </div>
-        </div>
-        <div className="center">
-          <Link className="link" to="/">
-            Candyland
-          </Link>
-        </div>
         <div className="right">
           {/* Search Bar */}
           <div className="searchBar">
