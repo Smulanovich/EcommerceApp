@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import List from "../../components/List/List";
 import useFetch from "../../hooks/useFetch";
@@ -26,7 +27,7 @@ const Products = () => {
     );
   };
 
-  return (
+    return (
     <div className="products">
       <div className="left">
         <div className="filterItem">
@@ -88,8 +89,7 @@ const Products = () => {
         />
         <List catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats}/>
       </div>
-    </div>
-  );
-};
-
+        </div>
+    );
+}
 export default Products;

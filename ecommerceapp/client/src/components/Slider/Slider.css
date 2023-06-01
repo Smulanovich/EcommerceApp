@@ -1,0 +1,9 @@
+.Slider{
+      .img{
+        object-fit: cover;
+        width: 300vw;
+        height: 200px;
+        display: flex;
+        transition: all 1s ease;
+      }
+}

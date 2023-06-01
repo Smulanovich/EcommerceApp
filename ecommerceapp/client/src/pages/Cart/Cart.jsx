@@ -74,7 +74,7 @@ const Cart = () => {
                 <span>$TBD</span>
             </div>
             <button>
-            <Link className="link" to="/Checkout/Checkout.jsx">
+            <Link className="link" to="/checkout">
                 PROCEED TO CHECKOUT
             </Link>
             </button>

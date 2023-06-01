@@ -5,10 +5,15 @@ import './EcommerceApp.css';
 import Home from './pages/Home/Home.jsx';
 import Products from './pages/Products/Products.jsx';
 import Product from './pages/Product/Product.jsx';
-import Cart from './components/Cart/Cart.jsx';
+import Cart from './pages/Cart/Cart.jsx';
 import Checkout from './pages/Checkout/Checkout.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import ProductDisplay from './pages/Products/ProductDisplay.jsx';
+import CartProvider from './pages/Cart/CartProvider.jsx'
+import UserProvider from './pages/User/userProvider.jsx';
+import User from './pages/User/User.jsx';
+import Register from './pages/User/Forms/Register';
 
 
 
@@ -32,10 +37,6 @@ const router = createBrowserRouter([
         element: <Home/>,
       },
       {
-        path: '/products/:id',
-        element: <Products/>,
-      },
-      {
         path: '/product/:id',
         element: <Product/>
       },
@@ -44,18 +45,44 @@ const router = createBrowserRouter([
         element: <Cart/>
       },
       {
-        path: '/checkout/:id',
+        path: '/checkout/',
         element: <Checkout/>
-      }
+      },
+      {
+        path: '/products',
+        element: <Products />,
+      },
+      {
+        path: '/products/:productType',
+        element: <ProductDisplay />,
+      },
+      {
+        path: '/products/:productType/:product/reviews',
+        element: <ProductDisplay />,
+      },
+      {
+        path: '/account',
+        element: <User />,
+      },
+      {
+        path: '/account/register',
+        element: <Register />,
+      },
     ]
   }
 ]);
 
-
 function EcommerceApp() {
+
   return (
     <div className="EcommerceApp">
-      <RouterProvider router={router}/>
+      <UserProvider>
+      <CartProvider>
+        <RouterProvider router={router}>
+          <Outlet/>
+        </RouterProvider>
+      </CartProvider>
+      </UserProvider>
     </div>
   );
 }

@@ -5,8 +5,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import "./Navbar.css"; 
-import Cart from "../Cart/Cart";
-
+import Cart from '../../pages/Cart/Cart';
 
 const Navbar = () => {
   const [open,setOpen] = useState(false)
@@ -103,4 +102,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

@@ -38,3 +38,10 @@
     margin-bottom: 50px;
   }
   
+  .products .productLink {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: inherit;
+    text-decoration: none;
+  }
+  
