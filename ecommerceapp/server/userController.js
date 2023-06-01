@@ -2,11 +2,13 @@
 
 const CC = require('./connectAndClose');
 
-async function getUserByEmail(email) {
+async function getUserEmailIfExists(email) {
   try {
     let user;
     await CC.connectAndClose(async (database) => {
-      user = await database.collection('Users').findOne({ email });
+      user = await database.collection('Users').findOne(
+        { email },
+        { projection: { email: 1} });
     });
     return user;
   } catch (error) {
@@ -15,20 +17,20 @@ async function getUserByEmail(email) {
   }
 }
 
-async function insertUser(email, firstName, lastName, password) {
+async function insertUser(email, firstName, lastName, userPassword) {
   try {
     // Check if a user with the same email already exists
-    const existingUser = await getUserByEmail(email);
+    const existingUser = await getUserEmailIfExists(email);
     if (existingUser) {
       console.log('User with the same email already exists.');
-      return; // Do not create the user
+      return null; // Do not create the user
     }
 
     const user = {
       email: email,
       firstName: firstName,
       lastName: lastName,
-      password: password,
+      password: userPassword,
       favoriteProducts: [],
       orderHistory: [],
     };
@@ -37,7 +39,11 @@ async function insertUser(email, firstName, lastName, password) {
       await database.collection('Users').insertOne(user);
       console.log('User inserted successfully.');
     });
-  } catch (error) {
+
+    const { password, favoriteProducts, orderHistory, ...userWithoutSensitiveData } = user;
+    return userWithoutSensitiveData;
+  } 
+  catch (error) {
     console.error('Error inserting user:', error);
     throw new Error('Error inserting user');
   }
@@ -49,12 +55,13 @@ async function authenticateLogin(email, password) {
     await CC.connectAndClose(async (database) => {
       user =  await database.collection('Users').findOne(
         { email: email, password: password },
-        { projection: { email: 1 } }
+        { projection: { email: 1, firstName: 1, lastName: 1 } }
       );
     });
 
-    return user ? user.email : null;
-  } catch (error) {
+    return user ? user : null;
+  } 
+  catch (error) {
     console.error('Error authenticating login:', error);
     throw new Error('Error authenticating login');
   }
@@ -155,7 +162,7 @@ async function getOrderHistory(userEmail) {
 }
 
 exports.insertUser = insertUser;
-exports.getUserByEmail = getUserByEmail;
+exports.getUserEmailIfExists = getUserEmailIfExists;
 exports.authenticateLogin = authenticateLogin;
 exports.addFavProduct = addFavProduct;
 exports.deleteFavProduct = deleteFavProduct;

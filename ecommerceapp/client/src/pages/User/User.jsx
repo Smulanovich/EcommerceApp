@@ -10,10 +10,12 @@ const User = () => {
     const { user } = useContext(UserContext);
     
     if (!user) {
+        console.log(user);
         return <Login />;
     }
 
     return <LoggedInUser user={user} />;
+
 
 }
 

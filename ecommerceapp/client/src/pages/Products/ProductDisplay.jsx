@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { CartContext } from "../Cart/CartProvider.jsx";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, Link } from "react-router-dom";
 
 const CandyDisplay = ({ product }) => {
   const { addToCart } = useContext(CartContext);
@@ -12,6 +12,7 @@ const CandyDisplay = ({ product }) => {
       <img src={product.image_address} alt={`${product.name} img`} />
       <p>Price: {product.price}</p>
       <button onClick={() => addToCart(product)}>Add to cart</button>
+      
     </div>
   );
 };

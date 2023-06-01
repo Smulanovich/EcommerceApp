@@ -39,7 +39,7 @@ app.get('/api/products/:collection/:name', async (req, res) => {
 });
 
 // API endpoint for retrieving reviews from a product
-app.get('/api/reviews/:collection/:name', async (req, res) => {
+app.get('/api/:collection/:name/reviews', async (req, res) => {
   try {
     const { collection, name } = req.params;
 
@@ -130,16 +130,10 @@ app.post('/api/insertUser', async (req, res) => {
   try {
     const { email, firstName, lastName, password } = req.body;
 
-    // Check if a user with the same email already exists
-    const existingUser = await userController.getUserByEmail(email);
-    if (existingUser) {
-      return res.status(409).json({ error: 'User with the same email already exists' });
-    }
-
     // Call the insertUser function from userController
-    await userController.insertUser(email, firstName, lastName, password);
+    const userInsertion = await userController.insertUser(email, firstName, lastName, password);
 
-    res.status(201).json({ message: 'User inserted successfully' });
+    res.json(userInsertion);
   } 
   catch (error) {
     console.error('Error inserting user:', error);
@@ -148,7 +142,7 @@ app.post('/api/insertUser', async (req, res) => {
 });
 
 // API endpoint for adding a favorite product for a user
-app.post('/api/users/favorite/add', async (req, res) => {
+app.post('/api/users/favorite/:product/add', async (req, res) => {
   try {
     const { userEmail, product } = req.body;
 
@@ -164,7 +158,7 @@ app.post('/api/users/favorite/add', async (req, res) => {
 });
 
 // API endpoint for removing a favorite product for a user
-app.post('/api/users/favorite/delete', async (req, res) => {
+app.post('/api/users/favorite/:product/delete', async (req, res) => {
   try {
     const { userEmail, product } = req.body;
 
