@@ -4,11 +4,6 @@ import './EcommerceApp.css';
 import Home from './pages/Home/Home.jsx';
 import ProductDisplay from './pages/Products/ProductDisplay.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
-import Footer from './components/Footer/Footer.jsx';
-import Register from './pages/SignIn/Register.jsx';
-import Login from './pages/SignIn/Login.jsx';
-import Reviews from './pages/Reviews/Reviews.jsx';
-
 import Products from './pages/Products/Products.jsx';
 import CartProvider from './pages/Cart/CartProvider.jsx'
 import UserProvider from './pages/User/userProvider.jsx';
