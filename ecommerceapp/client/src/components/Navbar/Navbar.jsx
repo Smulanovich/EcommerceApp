@@ -1,4 +1,4 @@
-import React, { useState } from "react";import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";import { Link } from "react-router-dom";
 import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
@@ -6,11 +6,14 @@ import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import "./Navbar.css"; 
 import Cart from '../../pages/Cart/Cart';
+import { CartContext } from "../../pages/Cart/CartProvider";
+
 
 const Navbar = () => {
   const [open,setOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const { cartItems, calculateTotalAmount, clearCart, removeFromCart, checkout, getCartSize } = useContext(CartContext);
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -91,7 +94,7 @@ const Navbar = () => {
             <GradeOutlinedIcon />
             <div className="cartIcon" onClick={() => setOpen(!open)}>
               <LocalMallOutlinedIcon />
-              <span>0</span>
+              <span>{(getCartSize())}</span>
             </div>
           </div>
         </div>
