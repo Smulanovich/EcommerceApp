@@ -16,9 +16,9 @@ import FavoriteProducts from './pages/User/FavoriteProducts';
 
 const ReturnUserEmail = () => {
   const { user } = useContext(UserContext);
+  console.log(user);
   if (!user) 
     return null;
-
   return user.email;
 };
 
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/account/favorites',
-        element: <FavoriteProducts userEmail = {() => ReturnUserEmail()} />,
+        element: <FavoriteProducts userEmail = {ReturnUserEmail} />,
       }
     ],
   },
