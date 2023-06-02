@@ -59,7 +59,7 @@ async function addReviewToProduct(collectionName, productName, authorEmail, comm
   }
 }
 
-async function serchForCandy(name) { 
+async function serchForCandy(name) {
   const collections = ['CandyBar', 'CandyCorn', 'CandyStick'];
 
   try {
@@ -67,7 +67,9 @@ async function serchForCandy(name) {
 
     await CC.connectAndClose(async (database) => {
       for (const collection of collections) {
-        document = await database.collection(collection).findOne({ name });
+        document = await database
+          .collection(collection)
+          .findOne({ name }, { projection: { reviews: 0 } });
 
         if (document) {
           break; // Item found, exit the loop
@@ -81,7 +83,6 @@ async function serchForCandy(name) {
     throw new Error(`Error retrieving "${name}" from collections`);
   }
 }
-
 
 exports.addReviewToProduct = addReviewToProduct;
 exports.getAllProductsFromCollection = getAllProductsFromCollection;

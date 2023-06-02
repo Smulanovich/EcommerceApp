@@ -122,7 +122,7 @@ async function deleteFavProduct(userEmail, product) {
 
 
 
-async function addOrderToHistory(userEmail, order) {
+async function addOrderToHistory(userEmail, orderArray) {
   try {
     await CC.connectAndClose(async (database) => {
       await database.collection('Users').updateOne(
@@ -193,7 +193,6 @@ async function deleteUser(email) {
     throw new Error('Error deleting user');
   }
 }
-
 
 exports.insertUser = insertUser;
 exports.getUserEmailIfExists = getUserEmailIfExists;
