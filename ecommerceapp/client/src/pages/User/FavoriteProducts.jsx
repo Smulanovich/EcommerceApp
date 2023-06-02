@@ -13,6 +13,26 @@ const FavoriteProducts = () => {
     navigate("/account");
   };
 
+  const removeFavorite = async (product) => {
+    try {
+      const removeSucces = await axios.post(
+        `http://localhost:4000/api/users/favorite/${product.name}/remove`,
+        { userEmail: user.email, product }
+      );
+      if (removeSucces) {
+        console.log("Removed from favorites");
+        setFavoriteProducts((prevProducts) =>
+          prevProducts.filter((p) => p.name !== product.name)
+      );
+      } else {
+        console.log("Failed to remove from favorites");
+      }
+    }
+    catch (error) {
+      console.error("Error removing from favorites:", error);
+    }
+  }
+
   useEffect(() => {
     if (!user) return;
 
@@ -40,7 +60,10 @@ const FavoriteProducts = () => {
   return (
     <div className="allProducts">
       {favoriteProducts.map((product) => (
-        <CandyDisplay product={product} />
+        <div className="reviewProduct">
+          <CandyDisplay product={product} />
+          <button onClick={() => removeFavorite(product)}>Remove from Favorites</button>
+        </div>
       ))}
     </div>
   );

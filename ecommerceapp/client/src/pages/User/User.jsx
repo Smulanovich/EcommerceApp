@@ -7,8 +7,7 @@ import Login from './Forms/Login.jsx';
 import LoggedInUser from './LoggedInUser.jsx';
 
 const User = () => {
-    const { user } = useContext(UserContext);
-    
+    const { user, logout } = useContext(UserContext);
     if (!user) {
         console.log(user);
         return <Login />;

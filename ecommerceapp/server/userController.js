@@ -69,24 +69,26 @@ async function authenticateLogin(email, password) {
 
 async function addFavProduct(userEmail, product) {
   try {
+    let additionStatus = true;
+
     await CC.connectAndClose(async (database) => {
       const collection = database.collection('Users');
       // Check if the product is already in the user's favoriteProducts array
       const user = await collection.findOne({ email: userEmail });
       if (user.favoriteProducts.includes(product)) {
         console.log('Product already exists in favorites.');
-        return false; // Do not add the product again
+        additionStatus = false; // Do not add the product again
+      } else {
+        // Add the product to the favoriteProducts array
+        await collection.updateOne(
+          { email: userEmail },
+          { $addToSet: { favoriteProducts: product } }
+        );
+        console.log('Product added as a favorite.');
       }
-
-      // Add the product to the favoriteProducts array
-      await collection.updateOne(
-        { email: userEmail },
-        { $addToSet: { favoriteProducts: product } }
-      );
-
-      console.log('Product added as a favorite.');
-      return true;
     });
+
+    return additionStatus;
   } catch (error) {
     console.error('Error adding favorite product:', error);
     throw new Error('Error adding favorite product');
@@ -95,20 +97,30 @@ async function addFavProduct(userEmail, product) {
 
 async function deleteFavProduct(userEmail, product) {
   try {
+    let removalStatus = false;
+
     await CC.connectAndClose(async (database) => {
-      // Remove the product from the favoriteProducts array
-      await database.collection('Users').updateOne(
+      const result = await database.collection('Users').updateOne(
         { email: userEmail },
         { $pull: { favoriteProducts: product } }
       );
 
-      console.log('Product removed from favorites.');
+      if (result.modifiedCount > 0) {
+        console.log('Product removed from favorites.');
+        removalStatus = true;
+      } else {
+        console.log('Product not found in favorites.');
+      }
     });
+
+    return removalStatus;
   } catch (error) {
     console.error('Error removing favorite product:', error);
     throw new Error('Error removing favorite product');
   }
 }
+
+
 
 async function addOrderToHistory(userEmail, order) {
   try {
@@ -117,7 +129,6 @@ async function addOrderToHistory(userEmail, order) {
         { email: userEmail },
         { $push: { orderHistory: order } }
       );
-
       console.log('Order added to order history successfully.');
     });
   } catch (error) {
@@ -154,13 +165,35 @@ async function getOrderHistory(userEmail) {
         { projection: { orderHistory: 1 } }
       );
     });
-
     return orderHistory ? orderHistory.orderHistory : [];
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error retrieving order history:', error);
     throw new Error('Error retrieving order history');
   }
 }
+
+async function deleteUser(email) {
+  try {
+    let deleteStatus = false;
+
+    await CC.connectAndClose(async (database) => {
+      const result = await database.collection('Users').deleteOne({ email });
+      
+      if (result.deletedCount > 0) {
+        console.log('User deleted successfully.');
+        deleteStatus = true;
+      } else {
+        console.log('User not found.');
+      }
+    });
+    return deleteStatus;
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw new Error('Error deleting user');
+  }
+}
+
 
 exports.insertUser = insertUser;
 exports.getUserEmailIfExists = getUserEmailIfExists;
@@ -170,3 +203,4 @@ exports.deleteFavProduct = deleteFavProduct;
 exports.addOrderToHistory = addOrderToHistory;
 exports.getFavProducts = getFavProducts;
 exports.getOrderHistory = getOrderHistory;
+exports.deleteUser = deleteUser;
