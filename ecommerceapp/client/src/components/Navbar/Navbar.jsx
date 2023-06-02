@@ -6,11 +6,13 @@ import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import "./Navbar.css"; 
 import { CartContext } from "../../pages/Cart/CartProvider.jsx";
+import { UserContext } from "../../pages/User/UserProvider.jsx"
 
 
 const Navbar = () => {
-
+    
     const { getCartSize } = useContext(CartContext);
+    const { user } = useContext(UserContext);
 
     return (
         <div className="Navbar">
@@ -42,7 +44,7 @@ const Navbar = () => {
                     <div className="icons">
                         <SearchOutlinedIcon/>
                         <Link className="link" to="/account"><AccountCircleOutlinedIcon/></Link>
-                        <GradeOutlinedIcon/>
+                        <Link className="link" to='/account/favorites'><GradeOutlinedIcon/></Link>
                         <div className="cartIcon">
                             <Link className="link" to="/Cart"><LocalMallOutlinedIcon/></Link>
                             <span>{getCartSize()}</span>
