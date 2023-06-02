@@ -75,7 +75,7 @@ async function addFavProduct(userEmail, product) {
       const user = await collection.findOne({ email: userEmail });
       if (user.favoriteProducts.includes(product)) {
         console.log('Product already exists in favorites.');
-        return; // Do not add the product again
+        return false; // Do not add the product again
       }
 
       // Add the product to the favoriteProducts array
@@ -85,6 +85,7 @@ async function addFavProduct(userEmail, product) {
       );
 
       console.log('Product added as a favorite.');
+      return true;
     });
   } catch (error) {
     console.error('Error adding favorite product:', error);

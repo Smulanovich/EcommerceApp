@@ -1,12 +1,39 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { useLocation, useParams, Link } from "react-router-dom";
+import { useLocation, useParams, Link, useNavigate } from "react-router-dom";
 import CandyDisplay from "./CandyDisplay.jsx";
+import { UserContext } from "../../pages/User/UserProvider.jsx";
 
 function ProductDisplay() {
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const { productType } = useParams();
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const AddToFavorites = async (product) => {
+    console.log("User: ", user);
+    if (!user) {
+      console.log("User not logged in");
+      alert("Please log in to add to favorites");
+      navigate("/account");
+      return;
+    }
+    const userEmail = user.email;
+    try {
+      const addSucces = await axios.post(
+        `http://localhost:4000/api/users/favorite/${product.name}/add`,
+        { userEmail, product }
+      );
+      if (addSucces) {
+        console.log("Added to favorites");
+      } else {
+        console.log("Failed to add to favorites");
+      }
+    } catch (error) {
+      console.error("Error adding to favorites:", error);
+    }
+  };
 
   useEffect(() => {
     // Make the HTTP request to fetch the products
@@ -29,10 +56,16 @@ function ProductDisplay() {
     );
   }
 
+  console.log("User: ", user);
   return (
     <div className="allProducts">
       {products.map((product) => (
+        <div key={product.id}>
           <CandyDisplay product={product} />
+          <button onClick={() => AddToFavorites(product)}>
+            Add To Favorites
+          </button>
+        </div>
       ))}
     </div>
   );

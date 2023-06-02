@@ -73,11 +73,11 @@ function EcommerceApp() {
   return (
     <div className="EcommerceApp">
       <UserProvider>
-      <CartProvider>
-        <RouterProvider router={router}>
-          <Outlet/>
-        </RouterProvider>
-      </CartProvider>
+        <CartProvider>
+          <RouterProvider router={router}>
+            <Outlet/>
+          </RouterProvider>
+        </CartProvider>
       </UserProvider>
     </div>
   );
