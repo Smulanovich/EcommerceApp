@@ -78,3 +78,8 @@
     font-size: 12px;
     cursor: pointer;
 }
+
+.cart .buttons {
+    display: flex;
+    align-items: center;
+}
