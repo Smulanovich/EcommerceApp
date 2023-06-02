@@ -16,7 +16,6 @@ const User = () => {
 
     return <LoggedInUser user={user} />;
 
-
 }
 
 export default User;

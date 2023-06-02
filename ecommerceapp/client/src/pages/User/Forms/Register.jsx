@@ -13,7 +13,7 @@ const Register = () => {
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
 
-  const { login, user } = useContext(UserContext);
+  const { login } = useContext(UserContext);
 
   const goToAccount = () => {
     navigate("/account");
