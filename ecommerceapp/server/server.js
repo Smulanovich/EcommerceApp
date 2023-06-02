@@ -158,7 +158,7 @@ app.post('/api/users/favorite/:product/add', async (req, res) => {
 });
 
 // API endpoint for removing a favorite product for a user
-app.post('/api/users/favorite/:product/delete', async (req, res) => {
+app.post('/api/users/favorite/:product/remove', async (req, res) => {
   try {
     const { userEmail, product } = req.body;
 
@@ -210,7 +210,6 @@ app.get('/api/users/:email/history', async (req, res) => {
   try {
     const { email } = req.params;
 
-    // Call the getOrderHistory function to retrieve the order history
     const orderHistory = await userController.getOrderHistory(email);
 
     res.json(orderHistory);
@@ -218,6 +217,19 @@ app.get('/api/users/:email/history', async (req, res) => {
   catch (error) {
     console.error('Error retrieving order history:', error);
     res.status(500).json({ error: 'Error retrieving order history' });
+  }
+});
+
+// API endpoint for deleting a user
+app.post('/api/users/:email/delete', async (req, res) => {
+  try {
+    const { email } = req.params;
+    const deleteSuccess = await userController.deleteUser(email);
+    res.json(deleteSuccess);
+  } 
+  catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ error: 'Error deleting user' });
   }
 });
 
