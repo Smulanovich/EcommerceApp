@@ -3,6 +3,9 @@ import axios from "axios";
 import { useLocation, useParams, Link, useNavigate } from "react-router-dom";
 import CandyDisplay from "./CandyDisplay.jsx";
 import { UserContext } from "../../pages/User/UserProvider.jsx";
+import { CartContext } from "../Cart/CartProvider.jsx";
+import ViewReviewsButton from "./ViewReviewsButton.jsx";
+
 
 function ProductDisplay() {
   const [products, setProducts] = useState([]);
@@ -65,6 +68,7 @@ function ProductDisplay() {
           <button onClick={() => AddToFavorites(product)}>
             Add To Favorites
           </button>
+          <ViewReviewsButton productName={product.name}/>
         </div>
       ))}
     </div>

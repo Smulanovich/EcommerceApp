@@ -4,7 +4,6 @@ import axios from "axios";
 import './SignIn.css'
 import { UserContext } from "../../../pages/User/UserProvider.jsx";
 
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

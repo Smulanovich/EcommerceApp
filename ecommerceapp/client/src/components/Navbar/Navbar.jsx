@@ -1,5 +1,5 @@
+
 import React, { useState, useContext } from "react";import { Link } from "react-router-dom";
-import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
@@ -10,6 +10,7 @@ import { UserContext } from "../../pages/User/UserProvider.jsx"
 import { CartContext } from "../../pages/Cart/CartProvider";
 import axios from "axios";
 import { useEffect } from "react";
+
 
 
 const Navbar = () => {
@@ -89,12 +90,6 @@ const Navbar = () => {
               <SearchOutlinedIcon className="searchIcon" />
             </div>
           </div>
-          {/* End of Search Bar */}
-          {/* <div className="item">
-            <Link className="link" to="/">
-              Homepage
-            </Link>
-          </div> */}
           <div className="item">
             <Link className="link" to="/">
               About

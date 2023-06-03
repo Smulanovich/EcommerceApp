@@ -12,6 +12,7 @@ import User from './pages/User/User.jsx';
 import Register from './pages/User/Forms/Register';
 import { UserContext } from "./pages/User/UserProvider.jsx"
 import FavoriteProducts from './pages/User/FavoriteProducts';
+import Reviews from './pages/Products/Reviews';
 
 const ReturnUserEmail = () => {
   const { user } = useContext(UserContext);
@@ -20,6 +21,8 @@ const ReturnUserEmail = () => {
     return null;
   return user.email;
 };
+
+
 
 const Layout = () => {
   return (
@@ -48,10 +51,6 @@ const router = createBrowserRouter([
         element: <ProductDisplay />,
       },
       {
-        path: '/products/:productType/:product/reviews',
-        element: <ProductDisplay />,
-      },
-      {
         path: '/account',
         element: <User />,
       },
@@ -62,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: '/account/favorites',
         element: <FavoriteProducts userEmail = {ReturnUserEmail} />,
+      },
+      {
+        path: '/products/:productType/:product/reviews',
+        element: <Reviews />,
       }
     ],
   },

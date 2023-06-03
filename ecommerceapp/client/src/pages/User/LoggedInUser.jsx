@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from 'react';
-import { UserContext } from "./UserProvider.jsx";
 import axios from "axios";
+import { UserContext } from "./UserProvider.jsx";
 
 const LoggedInUser = () => {
 
