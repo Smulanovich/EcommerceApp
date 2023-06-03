@@ -12,9 +12,15 @@ function CartProvider({ children }) {
     setCartItems([...cartItems, item]);
   };
 
-  const removeFromCart = (itemName) => {
-    setCartItems(cartItems.filter((item) => item.id !== itemName));
+  const removeFromCart = (itemId) => {
+    const index = cartItems.findIndex((item) => item.id === itemId);
+    if (index !== -1) {
+      const newCartItems = [...cartItems];
+      newCartItems.splice(index, 1);
+      setCartItems(newCartItems);
+    }
   };
+  
 
   const clearCart = () => {
     setCartItems([]);

@@ -57,6 +57,15 @@ const FavoriteProducts = () => {
     );
   }
 
+  if (favoriteProducts.length === 0)
+  {
+    return (
+        <div>
+            <h1>You currently do not have any favorite products</h1>
+        </div>
+    )
+  }
+
   return (
     <div className="allProducts">
       {favoriteProducts.map((product) => (
