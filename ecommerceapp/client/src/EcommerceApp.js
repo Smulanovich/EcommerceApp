@@ -1,11 +1,16 @@
 import React, { useContext } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+// EcommerceApp.js
 import './EcommerceApp.css';
 import Home from './pages/Home/Home.jsx';
-import ProductDisplay from './pages/Products/ProductDisplay.jsx';
-import Navbar from './components/Navbar/Navbar.jsx';
 import Products from './pages/Products/Products.jsx';
-import CartProvider from './pages/Cart/CartProvider.jsx'
+import Product from './pages/Product/Product.jsx';
+import Cart from './pages/Cart/Cart.jsx';
+import Checkout from './pages/Checkout/Checkout.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
+import Footer from './components/Footer/Footer.jsx';
+import ProductDisplay from './pages/Products/ProductDisplay.jsx';
+import CartProvider from './pages/Cart/CartProvider.jsx';
 import UserProvider from './pages/User/UserProvider.jsx';
 import User from './pages/User/User.jsx';
 import Register from './pages/User/Forms/Register';
