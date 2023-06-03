@@ -3,6 +3,7 @@ import axios from "axios";
 import { useLocation, useParams, Link, useNavigate } from "react-router-dom";
 import CandyDisplay from "./CandyDisplay.jsx";
 import { UserContext } from "../../pages/User/UserProvider.jsx";
+import "./ProductDisplay.css"; 
 
 function ProductDisplay() {
   const [products, setProducts] = useState([]);
@@ -62,7 +63,7 @@ function ProductDisplay() {
       {products.map((product) => (
         <div key={product.id}>
           <CandyDisplay product={product} />
-          <button onClick={() => AddToFavorites(product)}>
+          <button className="Favorites" onClick={() => AddToFavorites(product)}>
             Add To Favorites
           </button>
         </div>
