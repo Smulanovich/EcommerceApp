@@ -40,5 +40,9 @@
     /* Add the following styles to adjust the button size */
     padding: 5px 10px;
     font-size: 12px;
+    color: white;
+    font-weight: bold;
+    background-color: #48C2F9;
+    border: none;
   }
   
