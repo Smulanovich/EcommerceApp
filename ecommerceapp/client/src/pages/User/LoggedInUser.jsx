@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from 'react';
-import { UserContext } from "./userProvider.jsx";
+import { UserContext } from "./UserProvider.jsx";
 
 const LoggedInUser = ({ user }) => {
     const { logout } = useContext(UserContext);

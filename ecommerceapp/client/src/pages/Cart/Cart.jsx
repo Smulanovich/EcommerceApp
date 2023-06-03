@@ -6,6 +6,7 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useSelector } from "react-redux";
 import { CartContext } from "./CartProvider";
 
+
 const Cart = () => {
   const { cartItems, calculateTotalAmount, clearCart, removeFromCart, checkout } = useContext(CartContext);
   console.log(cartItems);
@@ -17,6 +18,7 @@ const Cart = () => {
   const handleResetCart = () => {
     clearCart();
   };
+  
 
   return (
     <div className="cart">

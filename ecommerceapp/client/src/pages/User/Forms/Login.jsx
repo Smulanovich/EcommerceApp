@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './SignIn.css'
-import { UserContext } from "../userProvider";
+import { UserContext } from "../UserProvider";
+
 
 const Login = () => {
   const [email, setEmail] = useState('');

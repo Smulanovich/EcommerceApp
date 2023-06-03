@@ -11,7 +11,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import ProductDisplay from './pages/Products/ProductDisplay.jsx';
 import CartProvider from './pages/Cart/CartProvider.jsx'
-import UserProvider from './pages/User/userProvider.jsx';
+import UserProvider from './pages/User/UserProvider.jsx';
 import User from './pages/User/User.jsx';
 import Register from './pages/User/Forms/Register';
 

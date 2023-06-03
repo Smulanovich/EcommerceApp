@@ -1,7 +1,7 @@
 // User.jsx
 
 import React from 'react';
-import { UserContext } from './userProvider.jsx';
+import { UserContext } from './UserProvider.jsx';
 import { useContext } from 'react';
 import Login from './Forms/Login.jsx';
 import LoggedInUser from './LoggedInUser.jsx';
@@ -15,7 +15,6 @@ const User = () => {
     }
 
     return <LoggedInUser user={user} />;
-
 
 }
 

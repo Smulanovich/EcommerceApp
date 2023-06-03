@@ -7,30 +7,51 @@ import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import "./Navbar.css"; 
 import Cart from '../../pages/Cart/Cart';
 import { CartContext } from "../../pages/Cart/CartProvider";
+import axios from "axios";
+import { useEffect } from "react";
 
 
 const Navbar = () => {
   const [open,setOpen] = useState(false)
+
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [productRetrieved, setProductRetrieved] = useState(null);
+
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const { cartItems, calculateTotalAmount, clearCart, removeFromCart, checkout, getCartSize } = useContext(CartContext);
 
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  const [productName, setProductname] = useState(null);
 
-  const performSearch = () => {
-    /*
-    const filteredResults = data.filter((item) =>
-      item.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    return filteredResults;
-    */
-  };
 
-  const handleSearchIconClick = () => {
-    setShowSearchBar(!showSearchBar);
+
+  const { cartItems, calculateTotalAmount, clearCart, removeFromCart, checkout, getCartSize, serchForCandy } = useContext(CartContext);
+
+
+  // const handleSearchIconClick = () => {
+  //   setShowSearchBar(!showSearchBar);
+  // };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    try {
+      const insertingResponse = await axios.post(
+        "http://localhost:4000/api/search",
+        { productName }
+      );
+      if (handleSearch.data) {
+        console.log("Product found");
+        setProductRetrieved(productRetrieved.data);
+      } 
+      else {
+        console.log("Search failed");
+      }
+    } 
+    catch (error) {
+      console.error("Could not find product", error);
+    }
   };
+  
+
 
   
   return (
@@ -44,7 +65,7 @@ const Navbar = () => {
         <div className="left">
         </div>
           <div className="item">
-            <Link className="link" to="/products/CandyBars">
+            <Link className="link" to="/products/CandyBar">
               Candy Bars
             </Link>
           </div>
@@ -54,7 +75,7 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="item">
-            <Link className="link" to="/products/CandySticks">
+            <Link className="link" to="/products/CandyStick">
               Candy Sticks
             </Link>
           </div>
@@ -65,10 +86,10 @@ const Navbar = () => {
               className="searchInput"
               type="text"
               value={searchQuery}
-              onChange={handleSearchInputChange}
+              onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
               placeholder="What are you looking for?"
             />
-            <div className="searchButton" onClick={performSearch}>
+            <div className="searchButton" onClick={handleSearch}>
               <SearchOutlinedIcon className="searchIcon" />
             </div>
           </div>
@@ -90,8 +111,8 @@ const Navbar = () => {
           </div>
           <div className="icons">
             {/* <SearchOutlinedIcon /> */}
-            <AccountCircleOutlinedIcon />
-            <GradeOutlinedIcon />
+            <Link className="link" to="/account"><AccountCircleOutlinedIcon/></Link>
+            <Link className="link" to='/account/favorites'><GradeOutlinedIcon/></Link>
             <div className="cartIcon" onClick={() => setOpen(!open)}>
               <LocalMallOutlinedIcon />
               <span>{(getCartSize())}</span>
