@@ -1,7 +1,7 @@
 // User.jsx
 
 import React from 'react';
-import { UserContext } from './UserProvider.jsx';
+import { UserContext } from './userProvider.jsx';
 import { useContext } from 'react';
 import Login from './Forms/Login.jsx';
 import LoggedInUser from './LoggedInUser.jsx';

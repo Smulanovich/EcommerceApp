@@ -7,9 +7,10 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Products from './pages/Products/Products.jsx';
 import CartProvider from './pages/Cart/CartProvider.jsx'
-import UserProvider from './pages/User/UserProvider.jsx';
+import UserProvider from './pages/User/userProvider.jsx';
 import User from './pages/User/User.jsx';
 import Register from './pages/User/Forms/Register';
+import CheckoutForm from './pages/Stripe/CheckoutForm';
 //import Cart from './components/Cart/Cart.jsx';
 //import Checkout from './pages/Checkout/Checkout.jsx';
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: '/account/register',
         element: <Register />,
+      },
+      {
+        path: '/CheckoutForm',
+        element: <CheckoutForm />,
       },
     ],
   },
