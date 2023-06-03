@@ -62,6 +62,11 @@
     justify-content: center;
 }
 
+.logo {
+    width: 400px;
+    height: auto;
+}
+
 /* Search Bar Styling */
 
 .searchBar {

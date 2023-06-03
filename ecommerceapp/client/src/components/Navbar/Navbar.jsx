@@ -10,6 +10,7 @@ import { UserContext } from "../../pages/User/UserProvider.jsx"
 import { CartContext } from "../../pages/Cart/CartProvider";
 import axios from "axios";
 import { useEffect } from "react";
+import logo from "../../images/CandyLand_Logo_Blue.png";
 
 
 const Navbar = () => {
@@ -261,7 +262,7 @@ const Navbar = () => {
       <div className="wrapper">
       <div className="center">
           <Link className="link" to="/">
-            Candyland
+          <img className="logo" src={logo} alt="Candyland Logo" />
           </Link>
         </div>
         <div className="left">
