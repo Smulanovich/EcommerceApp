@@ -46,10 +46,6 @@ const router = createBrowserRouter([
         element: <ProductDisplay />,
       },
       {
-        path: '/products/:productType/:product/reviews',
-        element: <ProductDisplay />,
-      },
-      {
         path: '/account',
         element: <User />,
       },
@@ -58,10 +54,9 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path:'/products/:productType/:product/reviews',
-        element: <Reviews />
+        path: '/products/:productType/:product/reviews',
+        element: <Reviews />,
       },
-      
     ],
   },
 ]);

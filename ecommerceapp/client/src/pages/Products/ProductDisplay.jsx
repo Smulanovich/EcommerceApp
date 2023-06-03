@@ -2,19 +2,17 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { CartContext } from "../Cart/CartProvider.jsx";
 import { useLocation, useParams, Link } from "react-router-dom";
+import ViewReviewsButton from "./ViewReviewsButton.jsx";
 
 const CandyDisplay = ({ product }) => {
   const { addToCart } = useContext(CartContext);
-  const {productType} = useParams();
+
   return (
     <div className="product">
       <h2>{product.name}</h2>
-      <img src={product.image_address} alt={`${product} img`} />
+      <img src={product.image_address}/>
       <p>Price: {product.price}</p>
       <button onClick={() => addToCart(product)}>Add to cart</button>
-      <Link to={`/products/${productType}/${product.name}/reviews`}>
-        <button>View Reviews</button>
-      </Link>
     </div>
   );
 };
@@ -48,7 +46,10 @@ function ProductDisplay() {
   return (
     <div className="allProducts">
       {products.map((product) => (
-          <CandyDisplay product={product} />
+          <div className="product">
+            <CandyDisplay product={product} />
+            <ViewReviewsButton productName={product.name}/>
+          </div>
       ))}
     </div>
   );

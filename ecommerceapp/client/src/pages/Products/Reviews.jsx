@@ -84,7 +84,6 @@ function Reviews () {
                  )}
                  {reviews &&
                  reviews.map((review) => <ReviewDisplay key={review.id} review={review} />)}
-                
             </div>
                  
     );
