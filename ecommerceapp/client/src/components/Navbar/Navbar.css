@@ -65,7 +65,13 @@
 .logo {
     width: 400px;
     height: auto;
+    transition: transform 0.3s ease;
 }
+
+  .logo:hover {
+    transform: scale(1.1); /* Increase the scale to make it slightly bigger */
+    cursor: pointer;
+  }
 
 /* Search Bar Styling */
 
