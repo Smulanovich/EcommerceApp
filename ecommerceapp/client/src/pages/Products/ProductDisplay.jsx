@@ -5,14 +5,16 @@ import { useLocation, useParams, Link } from "react-router-dom";
 
 const CandyDisplay = ({ product }) => {
   const { addToCart } = useContext(CartContext);
-
+  const {productType} = useParams();
   return (
     <div className="product">
       <h2>{product.name}</h2>
-      <img src={product.image_address} alt={`${product.name} img`} />
+      <img src={product.image_address} alt={`${product} img`} />
       <p>Price: {product.price}</p>
       <button onClick={() => addToCart(product)}>Add to cart</button>
-      
+      <Link to={`/products/${productType}/${product.name}/reviews`}>
+        <button>View Reviews</button>
+      </Link>
     </div>
   );
 };

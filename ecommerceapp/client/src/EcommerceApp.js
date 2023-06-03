@@ -9,6 +9,13 @@ import CartProvider from './pages/Cart/CartProvider.jsx'
 import UserProvider from './pages/User/userProvider.jsx';
 import User from './pages/User/User.jsx';
 import Register from './pages/User/Forms/Register';
+
+
+//take this part off later
+import Reviews from './pages/Products/Reviews.jsx';
+//this ^
+
+
 //import Cart from './components/Cart/Cart.jsx';
 //import Checkout from './pages/Checkout/Checkout.jsx';
 
@@ -50,6 +57,11 @@ const router = createBrowserRouter([
         path: '/account/register',
         element: <Register />,
       },
+      {
+        path:'/products/:productType/:product/reviews',
+        element: <Reviews />
+      },
+      
     ],
   },
 ]);
