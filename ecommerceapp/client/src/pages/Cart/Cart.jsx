@@ -1,6 +1,6 @@
 import { Divider } from "@mui/material";
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import "./Cart.css";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useSelector } from "react-redux";
@@ -10,6 +10,12 @@ import { CartContext } from "./CartProvider";
 const Cart = () => {
   const { cartItems, calculateTotalAmount, clearCart, removeFromCart, checkout } = useContext(CartContext);
   console.log(cartItems);
+
+  const navigate = useNavigate();
+
+  const GoToCheckoutForm = () => {
+    navigate("/checkout");
+  };
   
 
   const handleDelete = (itemId) => {
@@ -28,7 +34,7 @@ const Cart = () => {
         </div>  
       <div className="buttons">
         <button>
-          <span className="checkout" onClick={checkout()}>
+          <span className="checkout" onClick={() => GoToCheckoutForm()}>
           PROCEED TO CHECKOUT
           </span>
         </button>

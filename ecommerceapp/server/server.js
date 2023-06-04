@@ -4,7 +4,13 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const productController = require('./productController');
-const userController = require('./userController.js')
+const userController = require('./userController.js');
+const paymentController = require('./paymentController.js');
+require('dotenv').config();
+
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
+
+const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 app.use(cors());
 app.use(express.json());
@@ -233,6 +239,23 @@ app.post('/api/users/:email/delete', async (req, res) => {
   }
 });
 
+// Endpoint to create a payment intent
+app.post('/api/create-payment-intent', async (req, res) => {
+  try {
+    const { totalAmount } = req.body;
+
+    // Create a payment intent
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: totalAmount * 100,
+      currency: 'usd',
+    });
+
+    res.status(200).json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    console.error('Error creating payment intent:', error);
+    res.status(500).json({ error: 'Failed to create payment intent' });
+  }
+});
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
