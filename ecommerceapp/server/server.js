@@ -5,7 +5,6 @@ const cors = require('cors');
 const app = express();
 const productController = require('./productController');
 const userController = require('./userController.js');
-const paymentController = require('./paymentController.js');
 require('dotenv').config();
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
@@ -169,9 +168,9 @@ app.post('/api/users/favorite/:product/remove', async (req, res) => {
     const { userEmail, product } = req.body;
 
     // Call the deleteFavProduct function from userController
-    await userController.deleteFavProduct(userEmail, product);
+    const succesStatus = await userController.deleteFavProduct(userEmail, product);
 
-    res.json({ message: 'Product removed from favorites' });
+    res.json(succesStatus);
   } 
   catch (error) {
     console.error('Error removing favorite product:', error);
@@ -180,14 +179,14 @@ app.post('/api/users/favorite/:product/remove', async (req, res) => {
 });
 
 // API endpoint for adding an order to order history for a user
-app.post('/api/users/order/history', async (req, res) => {
+app.post('/api/users/:user/history/add', async (req, res) => {
   try {
-    const { userEmail, order } = req.body;
+    const { userEmail, cartItems } = req.body;
 
     // Call the addOrderToHistory function from userController
-    await userController.addOrderToHistory(userEmail, order);
+    const addingSuccess = await userController.addOrderToHistory(userEmail, cartItems);
 
-    res.json({ message: 'Order added to order history successfully' });
+    res.json(addingSuccess);
   } 
   catch (error) {
     console.error('Error adding order to order history:', error);

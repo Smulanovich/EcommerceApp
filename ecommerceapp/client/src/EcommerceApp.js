@@ -15,6 +15,7 @@ import FavoriteProducts from './pages/User/FavoriteProducts';
 import Reviews from './pages/Products/Reviews';
 import CheckoutForm from './pages/Checkout/CheckoutForm';
 import CheckoutSucces from './pages/Checkout/CheckoutSucces.jsx';
+import OrderHistory from './pages/User/OrderHistory';
 
 const ReturnUserEmail = () => {
   const { user } = useContext(UserContext);
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
         element: <FavoriteProducts userEmail = {ReturnUserEmail} />,
       },
       {
+        path: '/account/orders',
+        element: <OrderHistory/>,
+      },
+      {
         path: '/products/:productType/:product/reviews',
         element: <Reviews />,
       },
@@ -73,7 +78,7 @@ const router = createBrowserRouter([
         element: <CheckoutForm />,
       },
       {
-        path: '/checkout/:order/success',
+        path: '/checkout/success',
         element: <CheckoutSucces />,
       }
     ],

@@ -5,15 +5,26 @@ import "./Cart.css";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useSelector } from "react-redux";
 import { CartContext } from "./CartProvider";
+import { UserContext } from "../User/UserProvider";
 
 
 const Cart = () => {
-  const { cartItems, calculateTotalAmount, clearCart, removeFromCart, checkout } = useContext(CartContext);
+  const { cartItems, calculateTotalAmount, clearCart, removeFromCart } = useContext(CartContext);
+  const { user } = useContext(UserContext);
   console.log(cartItems);
 
   const navigate = useNavigate();
 
   const GoToCheckoutForm = () => {
+    if (!user) {
+      console.log('User not logged in');
+      alert('Please login to checkout');
+      navigate('/account');
+      return;
+    }
+    if (cartItems.length === 0)
+      return;
+      
     navigate("/checkout");
   };
   
@@ -38,11 +49,6 @@ const Cart = () => {
           PROCEED TO CHECKOUT
           </span>
         </button>
-        <button>
-          <Link className="link" to="/checkout">
-            View Cart Summary
-          </Link>
-        </button> 
           <span className="reset" onClick={handleResetCart}>
             Reset Cart
           </span>
@@ -53,7 +59,7 @@ const Cart = () => {
           <img src={item.image_address} alt="" />
           <div className="details">
             <h1 className="name">{item.name}</h1>
-            <div className="price">1 x ${item.price}</div>
+            <div className="price">${item.price}</div>
           </div>
           <DeleteOutlinedIcon
             className="delete"
