@@ -9,9 +9,10 @@ function Reviews() {
   const { productType, product } = useParams();
   const [reviews, setReviews] = useState([]);
   const [productObject, setProductObject] = useState({});
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState(0);
   const { user } = useContext(UserContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,13 +30,9 @@ function Reviews() {
         setLoading(false);
         setError(true);
       });
-  }, [productType, product, location]);
+  }, [productType, product, location, submissionStatus]);
 
   useEffect(() => {
-    if (Object.keys(productObject).length === 0) {
-      return; // Wait until productObject is retrieved
-    }
-
     axios
       .get(`http://localhost:4000/api/${productType}/${product}/reviews`)
       .then((response) => {
@@ -45,7 +42,7 @@ function Reviews() {
         console.error("Error retrieving reviews:", error);
         setError(true);
       });
-  }, [productType, product, location, productObject]);
+  }, [productType, product, location, productObject, submissionStatus]);
 
   console.log("reviews: ", reviews);
 
@@ -53,24 +50,28 @@ function Reviews() {
     setComment(event.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+  
     if (!user) {
       console.log("User not logged in");
       alert("Please log in to add a review");
       navigate("/account");
       return;
     }
-
+  
     const authorEmail = user.email;
-
+  
     try {
       const addSuccess = await axios.post(
         `http://localhost:4000/api/${productType}/${product}/reviews/add`,
         { authorEmail, comment }
       );
-
+  
       if (addSuccess) {
         console.log("Added review");
+        setSubmissionStatus((prevStatus) => prevStatus + 1); // Trigger re-render of parent components
+        setComment(""); // Clear the input field
       } else {
         console.log("Failed to add review");
       }
@@ -88,10 +89,12 @@ function Reviews() {
     );
   };
 
-  console.log("productObject: ", productObject);
-
   if (loading) {
-    return <h1>Loading...</h1>; 
+    return <h1>Loading...</h1>;
+  }
+
+  if (!productObject) {
+    return null;
   }
 
   return (
@@ -110,13 +113,13 @@ function Reviews() {
           <button type="submit">Submit Review</button>
         </form>
       </div>
-      {!reviews && (
+      {!reviews || reviews.length === 0 ? (
         <div className="retrError">
           <h1>No reviews for this product</h1>
         </div>
+      ) : (
+        reviews.map((review) => <ReviewDisplay review={review} />)
       )}
-      {reviews &&
-        reviews.map((review) => <ReviewDisplay review={review} />)}
     </div>
   );
 }
