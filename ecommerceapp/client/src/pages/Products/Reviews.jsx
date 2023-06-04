@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { CartContext } from "../Cart/CartProvider.jsx";
 import { useLocation, useParams, Link } from "react-router-dom";
+import { UserContext } from "../User/userProvider";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -9,7 +11,15 @@ function Reviews () {
     const { productType, product } = useParams();
     const [reviews, setReviews] = useState([]);
     const [userReview, setUserReview] = useState({authorEmail: "", comment:""});
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     const location = useLocation();
+    const { returnUser } = useContext(UserContext);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const navigate = useNavigate();
+
+    const goToAccount = () => {
+        navigate("/account");
+      };
 
     useEffect(() => {
         // Make the HTTP request to fetch the products
@@ -30,14 +40,29 @@ function Reviews () {
             });
         };
 
+
         const handleSubmit = (event) => {
             event.preventDefault();
+
+            const currentUser = returnUser();
+            if(!currentUser){
+                console.error("User is not logged in.");
+                setIsLoggedIn(false);
+                return;
+            }
+
+            const reviewData = {
+                ...userReview,
+                authorEmail: currentUser.email,
+            };
 
             axios 
             .post(`http://localhost:4000/api/${productType}/${product}/reviews`, userReview)
             .then((response) => {
                 setReviews([...reviews, response.data]);
                 setUserReview({authorEmail: "", comment:""});
+                setIsLoggedIn(true);
+                setIsSubmitted(true);
             })
             .catch((error) => {
                 console.error("Error adding review:", error);
@@ -56,17 +81,21 @@ function Reviews () {
 
         return (
             <div>
+                <div className="product">
+                    <img src={product.image_address} alt={product.name} />
+                    <h2>{product.name}</h2>
+                </div>
                 <div className="review-form">
                     <h2>Write a Review</h2>
-                    <form onSubmit={handleSubmit}>
-                        <input 
-                            type="text"
-                            name="authorEmail"
-                            placeholder="Your email"
-                            value={userReview.authorEmail}
-                            onChange={handleInputChange}
-                            required
-                        />
+                    {isSubmitted && isLoggedIn (<p>Review submitted successfully!</p>)}
+                    {!isLoggedIn && (
+                        <div>
+                            <p>Please log in to submit a review.</p>
+                            <button className="link-btn" onClick={goToAccount}> Login here. </button>
+                        </div>
+                    )}
+                    {isLoggedIn && ( 
+                        <form onSubmit={handleSubmit}>
                         <textarea
                             name="comment"
                             placeholder="Your Review"
@@ -76,6 +105,7 @@ function Reviews () {
                         ></textarea>
                         <button type="submit">Submit Review</button>
                     </form>
+                    )}
                 </div>
                  {!reviews && (
                     <div className="retrError">
@@ -84,6 +114,7 @@ function Reviews () {
                  )}
                  {reviews &&
                  reviews.map((review) => <ReviewDisplay key={review.id} review={review} />)}
+                
             </div>
                  
     );
