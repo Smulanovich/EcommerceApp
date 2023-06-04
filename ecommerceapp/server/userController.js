@@ -1,6 +1,7 @@
 // userController.js
 
 const CC = require('./connectAndClose');
+const { ObjectId } = require('mongodb');
 
 async function getUserEmailIfExists(email) {
   try {
@@ -120,23 +121,26 @@ async function deleteFavProduct(userEmail, product) {
   }
 }
 
-
-
 async function addOrderToHistory(userEmail, orderArray) {
   try {
+    let success = false;
     await CC.connectAndClose(async (database) => {
-      await database.collection('Users').updateOne(
+      const result = await database.collection('Users').updateOne(
         { email: userEmail },
-        { $push: { orderHistory: order } }
+        { $push: { orderHistory: { _id: new ObjectId(), orderArray } } }
       );
       console.log('Order added to order history successfully.');
+      success = result.modifiedCount === 1;
     });
-  } catch (error) {
+    return success;
+  } 
+  catch (error) {
     console.error('Error adding order to order history:', error);
     throw new Error('Error adding order to order history');
   }
 }
-    
+
+
 // Function to get favorite products of a user
 async function getFavProducts(userEmail) {
   try {
@@ -165,7 +169,7 @@ async function getOrderHistory(userEmail) {
         { projection: { orderHistory: 1 } }
       );
     });
-    return orderHistory ? orderHistory.orderHistory : [];
+    return orderHistory ? orderHistory.orderHistory : null;
   } 
   catch (error) {
     console.error('Error retrieving order history:', error);

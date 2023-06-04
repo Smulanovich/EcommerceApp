@@ -10,6 +10,8 @@ function Reviews() {
   const [reviews, setReviews] = useState([]);
   const [productObject, setProductObject] = useState({});
   const [comment, setComment] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const { user } = useContext(UserContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,14 +21,21 @@ function Reviews() {
       .get(`http://localhost:4000/api/products/${productType}/${product}`)
       .then((response) => {
         setProductObject(response.data);
+        setLoading(false);
         console.log("productObject: ", response.data);
       })
       .catch((error) => {
         console.error("Error retrieving product:", error);
+        setLoading(false);
+        setError(true);
       });
   }, [productType, product, location]);
-  
+
   useEffect(() => {
+    if (Object.keys(productObject).length === 0) {
+      return; // Wait until productObject is retrieved
+    }
+
     axios
       .get(`http://localhost:4000/api/${productType}/${product}/reviews`)
       .then((response) => {
@@ -34,17 +43,15 @@ function Reviews() {
       })
       .catch((error) => {
         console.error("Error retrieving reviews:", error);
+        setError(true);
       });
-  }, [productType, product, location]);
-  
+  }, [productType, product, location, productObject]);
+
   console.log("reviews: ", reviews);
-  
+
   const handleInputChange = (event) => {
     setComment(event.target.value);
   };
-  
-
-
 
   const handleSubmit = async () => {
     if (!user) {
@@ -55,13 +62,13 @@ function Reviews() {
     }
 
     const authorEmail = user.email;
-  
+
     try {
       const addSuccess = await axios.post(
         `http://localhost:4000/api/${productType}/${product}/reviews/add`,
         { authorEmail, comment }
       );
-  
+
       if (addSuccess) {
         console.log("Added review");
       } else {
@@ -71,7 +78,6 @@ function Reviews() {
       console.error("Error adding review:", error);
     }
   };
-  
 
   const ReviewDisplay = (props) => {
     return (
@@ -83,6 +89,10 @@ function Reviews() {
   };
 
   console.log("productObject: ", productObject);
+
+  if (loading) {
+    return <h1>Loading...</h1>; 
+  }
 
   return (
     <div>

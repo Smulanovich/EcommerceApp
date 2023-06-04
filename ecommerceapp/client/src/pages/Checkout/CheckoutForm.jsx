@@ -12,13 +12,36 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useContext(UserContext);
-  const { calculateTotalAmount } = useContext(CartContext); // Access calculateTotalAmount function
+  const { calculateTotalAmount, clearCart, cartItems } = useContext(CartContext); // Access calculateTotalAmount function
   const navigate = useNavigate(); 
 
+  const addOrderToHistory = async (userEmail, cartItems) => {
+    try {
+      const response = await axios.post(`http://localhost:4000/api/users/${userEmail}/history/add`, { userEmail, cartItems });
+      const addingSuccess = response.data;
+      if (addingSuccess) {
+        clearCart();
+        console.log("Order added to history");
+      } else {
+        console.log("Order not added to history");
+      }
+    } catch (error) {
+      console.error('Error adding order to order history:', error);
+    }
+  };
+  
+  
   const totalAmount = calculateTotalAmount(); // Calculate the total price
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!user) {
+      console.log('User not logged in');
+      alert('Please login to checkout');
+      navigate('/account');
+      return;
+    }
   
     if (!stripe || !elements) {
       return;
@@ -39,9 +62,9 @@ const CheckoutForm = () => {
       }
   
       // Send a request to the server to create a payment intent
-      const response = await axios.post('http://localhost:4000/api/create-payment-intent', {
-        totalAmount,
-      });
+      const response = await axios.post('http://localhost:4000/api/create-payment-intent', {totalAmount});
+
+      console.log('Response:', response.data);
   
       const { clientSecret } = response.data;
   
@@ -54,10 +77,10 @@ const CheckoutForm = () => {
         console.error('Error confirming payment:', confirmError);
         return;
       }
-  
-      // Handle success and perform further actions
+
       console.log('Payment successful!');
-      navigate('/checkout/success'); // Manually redirect to success URL
+      addOrderToHistory(user.email, cartItems);
+      navigate('/checkout/success'); 
     } catch (error) {
       console.error('Error processing payment:', error);
     }
