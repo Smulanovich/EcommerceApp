@@ -1,40 +1,28 @@
 // paymentController.js
 require('dotenv').config();
-
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
-
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
-const createCheckoutSession = async (req, res) => {
+// Process the payment using Stripe
+async function processPayment(paymentMethodId, totalAmount) {
   try {
-    const { amount } = req.body;
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Your Product',
-            },
-            unit_amount: amount, // The dynamic amount you received from the client
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: 'http://localhost:4000/success',
-      cancel_url: 'http://localhost:4000/cancel',
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: totalAmount,
+      currency: 'usd',
+      payment_method: paymentMethodId,
+      confirmation_method: 'manual',
+      confirm: true,
     });
 
-    res.json({ sessionId: session.id });
+    if (paymentIntent.status === 'succeeded') {
+      return paymentIntent.id;
+    } else {
+      return null;
+    }
   } catch (error) {
-    console.error('Error creating checkout session:', error);
-    res.status(500).send('Error creating checkout session');
+    console.error('Error processing payment:', error);
+    throw new Error('Error processing payment');
   }
-};
+}
 
-module.exports = {
-  createCheckoutSession,
-};
+exports.processPayment = processPayment;

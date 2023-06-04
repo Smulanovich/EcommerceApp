@@ -1,6 +1,6 @@
+// EcommerceApp.js
 import React, { useContext } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-// EcommerceApp.js
 import './EcommerceApp.css';
 import Home from './pages/Home/Home.jsx';
 import Products from './pages/Products/Products.jsx';
@@ -13,6 +13,8 @@ import Register from './pages/User/Forms/Register';
 import { UserContext } from "./pages/User/UserProvider.jsx"
 import FavoriteProducts from './pages/User/FavoriteProducts';
 import Reviews from './pages/Products/Reviews';
+import CheckoutForm from './pages/Checkout/CheckoutForm';
+import CheckoutSucces from './pages/Checkout/CheckoutSucces.jsx';
 
 const ReturnUserEmail = () => {
   const { user } = useContext(UserContext);
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
       {
         path: '/products/:productType/:product/reviews',
         element: <Reviews />,
+      },
+      {
+        path: '/checkout',
+        element: <CheckoutForm />,
+      },
+      {
+        path: '/checkout/:order/success',
+        element: <CheckoutSucces />,
       }
     ],
   },
