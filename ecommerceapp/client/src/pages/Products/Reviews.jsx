@@ -3,6 +3,7 @@ import axios from "axios";
 import { CartContext } from "../Cart/CartProvider.jsx";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../User/UserProvider.jsx";
+import CandyDisplay from "./CandyDisplay.jsx";
 
 function Reviews() {
   const { productType, product } = useParams();
@@ -14,7 +15,18 @@ function Reviews() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Make the HTTP request to fetch the products
+    axios
+      .get(`http://localhost:4000/api/products/${productType}/${product}`)
+      .then((response) => {
+        setProductObject(response.data);
+        console.log("productObject: ", response.data);
+      })
+      .catch((error) => {
+        console.error("Error retrieving product:", error);
+      });
+  }, [productType, product, location]);
+  
+  useEffect(() => {
     axios
       .get(`http://localhost:4000/api/${productType}/${product}/reviews`)
       .then((response) => {
@@ -24,12 +36,15 @@ function Reviews() {
         console.error("Error retrieving reviews:", error);
       });
   }, [productType, product, location]);
-
+  
   console.log("reviews: ", reviews);
-
+  
   const handleInputChange = (event) => {
     setComment(event.target.value);
   };
+  
+
+
 
   const handleSubmit = async () => {
     if (!user) {
@@ -38,9 +53,8 @@ function Reviews() {
       navigate("/account");
       return;
     }
-  
+
     const authorEmail = user.email;
-    alert(authorEmail);
   
     try {
       const addSuccess = await axios.post(
@@ -68,8 +82,11 @@ function Reviews() {
     );
   };
 
+  console.log("productObject: ", productObject);
+
   return (
     <div>
+      <CandyDisplay product={productObject} />
       <div className="review-form">
         <h2>Write a Review</h2>
         <form onSubmit={handleSubmit}>
