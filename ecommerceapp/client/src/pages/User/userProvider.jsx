@@ -13,17 +13,13 @@ function UserProvider({ children }) {
     setUser(null);
   };
 
-  const returnUser = () => {
-    return user;
-  };
 
   return (
     <UserContext.Provider
       value={{
         user,
         login,
-        logout,
-        returnUser
+        logout
       }}
     >
       {children}

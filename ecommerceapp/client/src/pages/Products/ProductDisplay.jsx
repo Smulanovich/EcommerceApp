@@ -64,7 +64,7 @@ function ProductDisplay() {
   return (
     <div className="allProducts">
       {products.map((product) => (
-        <div key={product.id}>
+        <div>
           <CandyDisplay product={product} />
           <button className="Favorites" onClick={() => AddToFavorites(product)}>
             Add To Favorites
