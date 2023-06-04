@@ -55,15 +55,15 @@ app.get('/api/:collection/:name/reviews', async (req, res) => {
 });
 
 // API endpoint for adding a review to a product
-app.post('/api/reviews/:collection/:name', async (req, res) => {
+app.post('/api/:collection/:name/reviews/add', async (req, res) => {
   try {
     const { collection, name } = req.params;
     const { authorEmail, comment } = req.body;
 
     // Call the addReviewToProduct function from productController
-    await productController.addReviewToProduct(collection, name, authorEmail, comment);
+    const response = await productController.addReviewToProduct(collection, name, authorEmail, comment);
 
-    res.json({ message: 'Review added successfully' });
+    res.json(response);
   } 
   catch (error) {
     console.error('Error adding review:', error);

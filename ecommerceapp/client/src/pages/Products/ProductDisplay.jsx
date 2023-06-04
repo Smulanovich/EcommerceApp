@@ -5,6 +5,7 @@ import CandyDisplay from "./CandyDisplay.jsx";
 import { UserContext } from "../../pages/User/UserProvider.jsx";
 import { CartContext } from "../Cart/CartProvider.jsx";
 import ViewReviewsButton from "./ViewReviewsButton.jsx";
+import "./ProductDisplay.css"; 
 
 
 function ProductDisplay() {
@@ -63,9 +64,9 @@ function ProductDisplay() {
   return (
     <div className="allProducts">
       {products.map((product) => (
-        <div key={product.id}>
+        <div>
           <CandyDisplay product={product} />
-          <button onClick={() => AddToFavorites(product)}>
+          <button className="Favorites" onClick={() => AddToFavorites(product)}>
             Add To Favorites
           </button>
           <ViewReviewsButton productName={product.name}/>

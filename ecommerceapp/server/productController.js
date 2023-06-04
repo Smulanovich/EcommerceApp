@@ -46,18 +46,25 @@ async function addReviewToProduct(collectionName, productName, authorEmail, comm
   try {
     await CC.connectAndClose(async (database) => {
       const collection = database.collection(collectionName);
-      await collection.updateOne(
+      const result = await collection.updateOne(
         { name: productName },
         { $push: { reviews: { email: authorEmail, comment: comment } } }
       );
+      
+      if (result.modifiedCount === 1) {
+        console.log('Review added successfully.');
+        return true;
+      } else {
+        console.log('Failed to add review.');
+        return false;
+      }
     });
-
-    console.log('Review added successfully.');
   } catch (error) {
     console.error('Error adding review:', error);
     throw new Error('Error adding review');
   }
 }
+
 
 async function serchForCandy(name) {
   const collections = ['CandyBar', 'CandyCorn', 'CandyStick'];
