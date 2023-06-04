@@ -1,9 +1,7 @@
-import { Divider } from "@mui/material";
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import "./Cart.css";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { useSelector } from "react-redux";
 import { CartContext } from "./CartProvider";
 import { UserContext } from "../User/UserProvider";
 
