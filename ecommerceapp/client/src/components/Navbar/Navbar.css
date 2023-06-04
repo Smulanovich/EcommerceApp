@@ -62,12 +62,24 @@
     justify-content: center;
 }
 
+.logo {
+    width: 400px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+  .logo:hover {
+    transform: scale(1.1); /* Increase the scale to make it slightly bigger */
+    cursor: pointer;
+  }
+
 /* Search Bar Styling */
 
 .searchBar {
     display: flex;
     align-items: center;
     margin-top: 10px;
+    position:relative;
     
   }
   
@@ -94,3 +106,32 @@
   .searchButton:hover {
     background-color: #e0e0e0;
   }
+
+  .searchBox {
+    position: relative;
+  }
+
+  .dropDownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid white;
+    border-top-width: none;
+    border-bottom-width: none;
+  }
+
+  .DropDownMenu:empty {
+    border:none
+  }
+
+  .dropDownRow {
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .dropDownRow:hover {
+    background-color: #f2f2f2;
+  }
+  

@@ -1,0 +1,48 @@
+.product {
+    /* Existing styles */
+    /* Add the following styles to make the products smaller */
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+
+  /* .product-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    align-items: center;
+  } */
+  
+  h2 {
+    /* Existing styles */
+    /* Add the following styles to adjust the font size */
+    font-size: 18px;
+  }
+  
+  img {
+    /* Existing styles */
+    /* Add the following styles to adjust the image size */
+    max-width: 100%;
+    height: auto;
+
+  }
+  
+  p {
+    /* Existing styles */
+    /* Add the following styles to adjust the font size */
+    font-size: 14px;
+  }
+  
+  button {
+    /* Existing styles */
+    /* Add the following styles to adjust the button size */
+    padding: 5px 10px;
+    font-size: 12px;
+    color: white;
+    font-weight: bold;
+    background-color: #48C2F9;
+    border: none;
+  }
+  
