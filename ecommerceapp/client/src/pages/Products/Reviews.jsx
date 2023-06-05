@@ -7,8 +7,7 @@ import CandyDisplay from "./CandyDisplay.jsx";
 
 function Reviews() {
   const { productType, product } = useParams();
-  const [reviews, setReviews] = useState([]);
-  const [productObject, setProductObject] = useState({});
+  const [data, setData] = useState(null);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -18,33 +17,24 @@ function Reviews() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/products/${productType}/${product}`)
-      .then((response) => {
-        setProductObject(response.data);
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/api/${productType}/${product}/reviews`
+        );
+        setData(response.data);
         setLoading(false);
-        console.log("productObject: ", response.data);
-      })
-      .catch((error) => {
-        console.error("Error retrieving product:", error);
-        setLoading(false);
+      } catch (error) {
         setError(true);
-      });
+        setLoading(false);
+        console.error("Error retrieving reviews:", error);
+      }
+    };
+
+    fetchReviews();
   }, [productType, product, location, submissionStatus]);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/${productType}/${product}/reviews`)
-      .then((response) => {
-        setReviews(response.data);
-      })
-      .catch((error) => {
-        console.error("Error retrieving reviews:", error);
-        setError(true);
-      });
-  }, [productType, product, location, productObject, submissionStatus]);
-
-  console.log("reviews: ", reviews);
+  console.log("reviews: ", data);
 
   const handleInputChange = (event) => {
     setComment(event.target.value);
@@ -93,13 +83,13 @@ function Reviews() {
     return <h1>Loading...</h1>;
   }
 
-  if (!productObject) {
-    return null;
+  if (error) {
+    return <h1>Error occurred while fetching data</h1>;
   }
 
   return (
     <div>
-      <CandyDisplay product={productObject} />
+      <CandyDisplay product={data} />
       <div className="review-form">
         <h2>Write a Review</h2>
         <form onSubmit={handleSubmit}>
@@ -113,12 +103,12 @@ function Reviews() {
           <button type="submit">Submit Review</button>
         </form>
       </div>
-      {!reviews || reviews.length === 0 ? (
+      {!data || data.reviews.length === 0 ? (
         <div className="retrError">
           <h1>No reviews for this product</h1>
         </div>
       ) : (
-        reviews.map((review) => <ReviewDisplay review={review} />)
+        data.reviews.map((review) => <ReviewDisplay review={review} />)
       )}
     </div>
   );

@@ -33,7 +33,7 @@ async function getReviewsFromProduct(collection, name) {
     let reviews;
     await CC.connectAndClose(async (database) => {
       const document = await database.collection(collection).findOne({ name });
-      reviews = document.reviews || []; // Retrieve the reviews field from the document
+      reviews = document || null; // Retrieve the reviews field from the document
     });
     return reviews;
   } catch (error) {
