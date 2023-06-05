@@ -2,7 +2,6 @@
 
 const CC = require('./connectAndClose');
 
-
 async function getAllProductsFromCollection(collection) {
   try {
     let documents;
