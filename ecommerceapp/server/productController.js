@@ -77,14 +77,12 @@ async function searchForCandy() {
       for (const collection of collections) {
         const documents = await database
           .collection(collection)
-          .find({}, { projection: { name: 1, type: 1 } })
+          .find({}, { projection: { name: 1, type: 1, _id: 0 } })
           .toArray();
 
         results.push(...documents);
       }
     });
-
-    console.log('Search results:', results);
 
     return results;
   } catch (error) {

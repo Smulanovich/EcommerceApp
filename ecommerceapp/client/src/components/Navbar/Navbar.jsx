@@ -1,5 +1,6 @@
 
-import React, { useState, useContext } from "react";import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
@@ -21,11 +22,15 @@ const Navbar = () => {
   const { user } = useContext(UserContext);
   const { getCartSize } = useContext(CartContext);
   const [candyProducts, setCandyProducts] = useState([]);
-  //const location = useLocation();
+  const collections = ['CandyBar', 'CandyCorn', 'CandyStick'];
+  const navigate = useNavigate('');
 
 
   const handleSearch = async (e) => {
-    setSearchQuery(e);
+    setSearchQuery(e.name);
+    navigate(`/products/${collections[e.type - 1]}/${e.name}/reviews`);
+
+
   };
 
 
@@ -43,6 +48,8 @@ const Navbar = () => {
     fetchCandyProducts();
   }, []);
     
+
+  console.log("searchQuery: ", searchQuery);
   return (
     <div className="Navbar">
       <div className="wrapper">
@@ -78,7 +85,7 @@ const Navbar = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="What are you looking for?"
             />
-            <div className="searchButton" onClick={handleSearch}>
+            <div className="searchButton">
               <SearchOutlinedIcon className="searchIcon" />
             </div>
             <div className="dropDownMenu">
@@ -91,10 +98,10 @@ const Navbar = () => {
             .slice(0,5)
             .map(item => (
               <div 
-              onClick={()=>handleSearch(item.name)} 
-              className="dropDownRow" key={item.id}
+              onClick={()=>handleSearch(item)} 
+              className="dropDownRow"
               >
-                {item.name}
+                {item.name.toUpperCase()}
               </div>
             ))}
             </div>

@@ -6,7 +6,6 @@ const app = express();
 const productController = require('./productController');
 const userController = require('./userController.js');
 require('dotenv').config();
-const { searchForCandy } = require('./productController');
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
 
@@ -81,7 +80,7 @@ app.post('/api/:collection/:name/reviews/add', async (req, res) => {
 // API endpoint for searching
 app.get('/api/products', async (req, res) => {
   try {
-    const candyProducts = await searchForCandy();
+    const candyProducts = await productController.searchForCandy();
     console.log('Candy Products:', candyProducts);
     res.json(candyProducts);
   } 
