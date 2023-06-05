@@ -2,6 +2,7 @@
 
 const CC = require('./connectAndClose');
 
+
 async function getAllProductsFromCollection(collection) {
   try {
     let documents;
@@ -66,33 +67,35 @@ async function addReviewToProduct(collectionName, productName, authorEmail, comm
 }
 
 
-async function serchForCandy(name) {
+async function searchForCandy() {
   const collections = ['CandyBar', 'CandyCorn', 'CandyStick'];
 
   try {
-    let document = null;
+    const results = [];
 
     await CC.connectAndClose(async (database) => {
       for (const collection of collections) {
-        document = await database
+        const documents = await database
           .collection(collection)
-          .findOne({ name }, { projection: { reviews: 0 } });
+          .find({}, { projection: { name: 1, type: 1 } })
+          .toArray();
 
-        if (document) {
-          break; // Item found, exit the loop
-        }
+        results.push(...documents);
       }
     });
 
-    return document;
+    console.log('Search results:', results);
+
+    return results;
   } catch (error) {
-    console.error(`Error retrieving "${name}" from collections:`, error);
-    throw new Error(`Error retrieving "${name}" from collections`);
+    console.error('Error retrieving items from collections:', error);
+    throw new Error('Error retrieving items from collections');
   }
 }
+
 
 exports.addReviewToProduct = addReviewToProduct;
 exports.getAllProductsFromCollection = getAllProductsFromCollection;
 exports.getItemByNameFromCollection = getItemByNameFromCollection;
 exports.getReviewsFromProduct = getReviewsFromProduct;
-exports.serchForCandy = serchForCandy;
+exports.searchForCandy = searchForCandy;

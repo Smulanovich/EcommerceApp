@@ -6,6 +6,7 @@ const app = express();
 const productController = require('./productController');
 const userController = require('./userController.js');
 require('dotenv').config();
+const { searchForCandy } = require('./productController');
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
 
@@ -76,20 +77,19 @@ app.post('/api/:collection/:name/reviews/add', async (req, res) => {
   }
 });
 
-// Api checkpoint for searching products
-app.get('/api/products/search', async (req, res) => {
-  try {
-    const { productName } = req.body;
-    const productSearched = await productController.serchForCandy(productName);
 
-    res.json(productSearched);
-  }
+// API endpoint for searching
+app.get('/api/products', async (req, res) => {
+  try {
+    const candyProducts = await searchForCandy();
+    console.log('Candy Products:', candyProducts);
+    res.json(candyProducts);
+  } 
   catch (error) {
-    console.error('Error searching for product:', error);
-    res.status(500).json({ error: 'Error searching for product' });
+    console.error('Error retrieving candy items:', error);
+    res.status(500).json({ error: 'Error retrieving candy items' });
   }
 });
-
 
 // userController -------------------------------------------------------------------------------------------------------
 
