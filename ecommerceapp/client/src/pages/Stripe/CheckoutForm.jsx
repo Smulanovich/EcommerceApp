@@ -268,6 +268,7 @@ const App = () => {
 export default App;
 */
 //===================================================================================================================
+/*
 import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { CardNumberElement, CardExpiryElement, CardCvcElement, Elements, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -422,4 +423,117 @@ const App = () => {
 };
 
 export default App;
+*/
+//CheckoutForm.jsx
+import React from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useElements, Elements } from '@stripe/react-stripe-js';
+import './CheckoutForm.css';
 
+const stripePromise = loadStripe('pk_test_1234567890'); // Replace with your actual publishable key
+
+const CheckoutForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      // Stripe.js has not yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    const { error } = await stripe.redirectToCheckout({
+      lineItems: [
+        // Add line items with details about the product being purchased
+        { price: 'YOUR_PRODUCT_PRICE_ID', quantity: 1 },
+      ],
+      mode: 'payment',
+      successUrl: 'https://your-website.com/success',
+      cancelUrl: 'https://your-website.com/cancel',
+      paymentMethodTypes: ['card'],
+    });
+
+    if (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2 className="title">Secure Checkout</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="formGroup">
+          <label className="label">Card Number:</label>
+          <CardNumberElement
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  width: '100%',
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '3px',
+                  letterSpacing: '0.5px',
+                  fontFamily: 'Arial, sans-serif',
+                },
+              },
+              placeholder: '1234 5678 9012 3456',
+            }}
+          />
+        </div>
+        <div className="formGroup">
+          <label className="label">Expiry Date:</label>
+          <CardExpiryElement
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  width: '100%',
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '3px',
+                  letterSpacing: '0.5px',
+                  fontFamily: 'Arial, sans-serif',
+                },
+              },
+              placeholder: 'MM/YY',
+            }}
+          />
+        </div>
+        <div className="formGroup">
+          <label className="label">CVC:</label>
+          <CardCvcElement
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  width: '100%',
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '3px',
+                  letterSpacing: '0.5px',
+                  fontFamily: 'Arial, sans-serif',
+                },
+              },
+              placeholder: '123',
+            }}
+          />
+        </div>
+        <button type="submit" className="button">
+          Pay Now
+        </button>
+      </form>
+    </div>
+  );
+};
+
+const WrappedCheckoutForm = () => (
+  <Elements stripe={stripePromise}>
+    <CheckoutForm />
+  </Elements>
+);
+
+export default WrappedCheckoutForm;
