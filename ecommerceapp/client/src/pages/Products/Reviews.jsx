@@ -32,9 +32,8 @@ function Reviews() {
     };
 
     fetchReviews();
-  }, [productType, product, location, submissionStatus]);
+  }, [productType, product, submissionStatus]);
 
-  console.log("reviews: ", data);
 
   const handleInputChange = (event) => {
     setComment(event.target.value);
