@@ -7,7 +7,6 @@ import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import "./Navbar.css"; 
 import Cart from '../../pages/Cart/Cart';
-import { UserContext } from "../../pages/User/UserProvider.jsx"
 import { CartContext } from "../../pages/Cart/CartProvider";
 import axios from "axios";
 import { useEffect } from "react";
@@ -19,7 +18,6 @@ const Navbar = () => {
 
   const [open,setOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("");
-  const { user } = useContext(UserContext);
   const { getCartSize } = useContext(CartContext);
   const [candyProducts, setCandyProducts] = useState([]);
   const collections = ['CandyBar', 'CandyCorn', 'CandyStick'];

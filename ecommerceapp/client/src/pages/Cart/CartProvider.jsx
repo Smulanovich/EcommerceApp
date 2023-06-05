@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-import { UserContext } from "../User/UserProvider";
 
 export const CartContext = createContext();
 
@@ -32,8 +31,6 @@ function CartProvider({ children }) {
   const calculateTotalAmount = () => {
     return cartItems.reduce((total, item) => total + item.price, 0);
   };
-
-
 
   return (
     <CartContext.Provider

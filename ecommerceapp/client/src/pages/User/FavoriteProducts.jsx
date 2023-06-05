@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import CandyDisplay from "../Products/CandyDisplay.jsx";
 import axios from 'axios';
 import { UserContext } from "./UserProvider.jsx";
@@ -8,6 +8,7 @@ const FavoriteProducts = () => {
   const { user } = useContext(UserContext);
   const [favoriteProducts, setFavoriteProducts] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const GoToAccount = () => {
     navigate("/account");
@@ -15,20 +16,19 @@ const FavoriteProducts = () => {
 
   const removeFavorite = async (product) => {
     try {
-      const removeSucces = await axios.post(
+      const removeSuccess = await axios.post(
         `http://localhost:4000/api/users/favorite/${product.name}/remove`,
         { userEmail: user.email, product }
       );
-      if (removeSucces) {
+      if (removeSuccess) {
         console.log("Removed from favorites");
         setFavoriteProducts((prevProducts) =>
           prevProducts.filter((p) => p.name !== product.name)
-      );
+        );
       } else {
         console.log("Failed to remove from favorites");
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error removing from favorites:", error);
     }
   }
@@ -43,7 +43,7 @@ const FavoriteProducts = () => {
       .catch((error) => {
         console.error("Error retrieving favorite products:", error);
       });
-  }, [user]);
+  }, [location, user]);
 
   if (!user) {
     return (
@@ -57,13 +57,12 @@ const FavoriteProducts = () => {
     );
   }
 
-  if (favoriteProducts.length === 0)
-  {
+  if (favoriteProducts.length === 0) {
     return (
-        <div>
-            <h1>You currently do not have any favorite products</h1>
-        </div>
-    )
+      <div>
+        <h1>You currently do not have any favorite products</h1>
+      </div>
+    );
   }
 
   return (
