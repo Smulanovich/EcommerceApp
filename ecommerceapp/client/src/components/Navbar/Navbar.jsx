@@ -52,30 +52,15 @@ const Navbar = () => {
     <div className="Navbar">
       <div className="wrapper">
       <div className="center">
-          <Link className="link" to="/">
+      <div className="left">
+        <Link className="link" to="/">
           <img className="logo" src={logo} alt="Candyland Logo" />
-          </Link>
+        </Link>
         </div>
-        <div className="left">
         </div>
-          <div className="item">
-            <Link className="link" to="/products/CandyBar">
-              Candy Bars
-            </Link>
-          </div>
-          <div className="item">
-            <Link className="link" to="/products/CandyCorn">
-              Candy Corn
-            </Link>
-          </div>
-          <div className="item">
-            <Link className="link" to="/products/CandyStick">
-              Candy Sticks
-            </Link>
-          </div>
-        <div className="right">
+        <div className="middle">
           {/* Search Bar */}
-          <div className="searchBar">
+        <div className="searchBar">
             <input
               className="searchInput"
               type="text"
@@ -104,6 +89,8 @@ const Navbar = () => {
             ))}
             </div>
           </div>
+        </div>
+        <div className="right">
           <div className="item">
             <Link className="link" to="/">
               About
