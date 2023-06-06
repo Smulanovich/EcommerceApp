@@ -18,7 +18,6 @@
     display: flex;
     align-items: center;
     text-align: center;
-    gap: 25px;
 }
 
 .center{
@@ -63,8 +62,11 @@
 }
 
 .logo {
-    width: 400px;
+    width: 300px;
     height: auto;
+    display: flex;
+    align-self: center;
+    justify-content: center;
 }
 
 .middle {
@@ -79,7 +81,6 @@
     margin-top: 10px;
     position:relative;
     width: 650px;
-    
   }
   
   .searchInput {
@@ -90,6 +91,8 @@
     width: 650px;
     height: 30px;
     background-color: #e0e0e0;
+    font-size: 20px;
+     z-index: 10000;
   }
   
   .searchButton {
@@ -118,10 +121,11 @@
     left: 0;
     width: 100%;
     background-color: white;
-    border: 1px solid white;
+    
     border-top-width: none;
     border-bottom-width: none;
     z-index: 2;
+    z-index: 10000;
   }
 
   .DropDownMenu:empty {
@@ -136,4 +140,20 @@
   .dropDownRow:hover {
     background-color: #f2f2f2;
   }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity and color as needed */
+    z-index: 9999; /* Ensure the overlay appears above other elements */
+    display: none; /* Initially hide the overlay */
+  }
+  
+  .searchBar:focus-within ~ .overlay {
+    display: block; /* Show the overlay when the search bar or its child elements are focused */
+  }
+  
   
