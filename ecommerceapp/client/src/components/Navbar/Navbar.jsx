@@ -81,7 +81,7 @@ const Navbar = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="What are you looking for?"
+              placeholder="Craving something specific?"
             />
             <div className="searchButton">
               <SearchOutlinedIcon className="searchIcon" />
