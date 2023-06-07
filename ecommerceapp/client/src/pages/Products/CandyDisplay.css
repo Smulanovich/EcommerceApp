@@ -47,8 +47,19 @@
     font-weight: bold;
     background-color: #48C2F9;
     border: none;
-    border-radius: 5px; /* Add border-radius to give rounded edges */;
-    margin: auto;
+    border-radius: 5px; /* Add border-radius to give rounded edges */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Example shadow style */
+    margin-left: 26px;
   }
+  
+  .addToCart:hover {
+    background-color: #297dbf; /* Change the background color on hover */
+  }
+
+  .price {
+    margin-left: 10px;
+    font-size: 24px;
+  }
+  
   
   

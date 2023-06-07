@@ -4,14 +4,17 @@
     align-items: center;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 120px;
+    grid-row-gap: 100px;
     justify-content: center;
     margin: 0 auto; /* Add margin: 0 auto; to horizontally center the grid */
-    max-width: 960px; /* Adjust the max-width as per your preference */
+    max-width: 960px; /* Adjust the max-width as per your preference */  
   }
 
   .productContainer {
     display: flex;
     flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Example shadow style */  
+    border-radius: 10px;
   }
   
   .buttonContainer {
@@ -21,10 +24,27 @@
   }
   
   .Favorites {
-    background: transparent;
+    background: none;
     border: none;
     padding: 0;
     scale: 0.5;
+  }
+  
+  .Favorites img {
+    transition: filter 0.3s; /* Add transition for smooth effect */
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+  }
+  
+  .Favorites:hover img {
+    filter: brightness(1.2); /* Example: increase brightness */
+  }
+  
+  .Favorites:active img {
+    filter: brightness(0.8); /* Example: decrease brightness when clicked */
+  }
+
+  .img {
+    margin-bottom: 0px;
   }
 
   

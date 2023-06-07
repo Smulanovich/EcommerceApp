@@ -1,0 +1,16 @@
+.viewReviews {
+    /* Existing styles */
+    /* Add the following styles to adjust the button size and shape */
+    padding: 5px 5px;
+    font-size: 1em; /* Adjust the font size as needed */
+    color: white;
+    font-weight: bold;
+    background-color: #48C2F9;
+    border: none;
+    border-radius: 5px; /* Add border-radius to give rounded edges */
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+  }
+  
+  .viewReviews:hover {
+    background-color: #297dbf; /* Change the background color on hover */
+  }

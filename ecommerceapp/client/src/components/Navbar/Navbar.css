@@ -1,5 +1,6 @@
 .Navbar{
     height: 80px;
+    margin-bottom: 30px;
 }
 
 .wrapper{
@@ -121,11 +122,11 @@
     left: 0;
     width: 100%;
     background-color: white;
-    
     border-top-width: none;
     border-bottom-width: none;
     z-index: 2;
     z-index: 10000;
+    border-radius: 4px;
   }
 
   .DropDownMenu:empty {

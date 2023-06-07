@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import "./ViewReviewsButton.css"
 
 const ViewReviewsButton = ({ productName }) => {
     const {productType} = useParams();
@@ -11,7 +12,7 @@ const ViewReviewsButton = ({ productName }) => {
 
     return (
         <div className="ViewReviewButton">
-            <button onClick={() => GoToReviews()}>View reviews</button>
+            <button className="viewReviews" onClick={() => GoToReviews()}>View reviews</button>
         </div>
     )
 }

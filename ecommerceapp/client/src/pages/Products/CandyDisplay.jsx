@@ -10,7 +10,7 @@ const CandyDisplay = ({ product }) => {
       <div className="product">
         <h2>{product.name}</h2>
         <img src={product.image_address} alt={`${product.name} img`} />
-        <p>Price: {product.price}</p>
+        <p className="price">{product.price}$</p>
       </div>
       <button className="addToCart" onClick={() => addToCart(product)}>Add to cart</button>
     </div>
