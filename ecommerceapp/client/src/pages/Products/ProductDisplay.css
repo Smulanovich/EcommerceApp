@@ -47,6 +47,19 @@
     margin-bottom: 0px;
   }
 
+  .favoritesMessage {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #48C2F9;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  
+  
   
   
   
