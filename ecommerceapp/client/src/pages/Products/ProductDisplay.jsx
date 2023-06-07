@@ -7,6 +7,7 @@ import { CartContext } from "../Cart/CartProvider.jsx";
 import ViewReviewsButton from "./ViewReviewsButton.jsx";
 import "./ProductDisplay.css";
 import favoritesImage from "../../images/addedToFavorites.png";
+import Footer from "../../components/Footer/Footer.jsx";
 
 function ProductDisplay() {
   const [products, setProducts] = useState([]);
@@ -71,7 +72,8 @@ function ProductDisplay() {
 
   console.log("User: ", user);
   return (
-    <div className="allProducts">
+    <div className="productPage">
+      <div className="allProducts">
       {products.map((product) => (
         <div className="productContainer">
           <CandyDisplay product={product} />
@@ -88,6 +90,8 @@ function ProductDisplay() {
       <div id="favoritesMessage" className="favoritesMessage">
         Item added to favorites
       </div>
+      </div>
+      <Footer />
     </div>
   );
 }

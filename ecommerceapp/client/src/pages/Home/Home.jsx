@@ -4,6 +4,7 @@ import "./Home.css";
 import skittles from "../../images/skittles.png";
 import kitkat from "../../images/kitkat.png";
 import twizzlers from "../../images/twizzlers.png";
+import Footer from "../../components/Footer/Footer.jsx";
 
 const Home = () => {
     return (
@@ -30,6 +31,7 @@ const Home = () => {
                     </div>
                 </a>
             </div>
+            <Footer />
         </div>
     );
 }
