@@ -9,13 +9,26 @@
     max-width: 960px; /* Adjust the max-width as per your preference */
   }
 
-  .Favorites {
-    padding: 5px 10px;
-    font-size: 12px;
-    align-items: center;
-    margin-left: 50px;
-    margin-right: 50px;
-    width: 203px;
+  .productContainer {
+    display: flex;
+    flex-direction: column;
   }
+  
+  .buttonContainer {
+    display: flex;
+    gap: 10px; /* Adjust the gap as per your preference */
+    align-items: center; /* Center buttons vertically */
+  }
+  
+  .Favorites {
+    background: transparent;
+    border: none;
+    padding: 0;
+    scale: 0.5;
+  }
+
+  
+  
+  
   
   
