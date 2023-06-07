@@ -4,6 +4,7 @@ import { CartContext } from "../Cart/CartProvider.jsx";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../User/UserProvider.jsx";
 import CandyDisplay from "./CandyDisplay.jsx";
+import "./Reviews.css"
 
 function Reviews() {
   const { productType, product } = useParams();
@@ -87,8 +88,8 @@ function Reviews() {
   }
 
   return (
-    <div>
-      <CandyDisplay product={data} />
+    <div className="container">
+      <CandyDisplay product={data} className="candy-display"/>
       <div className="review-form">
         <h2>Write a Review</h2>
         <form onSubmit={handleSubmit}>
@@ -107,7 +108,11 @@ function Reviews() {
           <h1>No reviews for this product</h1>
         </div>
       ) : (
-        data.reviews.map((review) => <ReviewDisplay review={review} />)
+        data.reviews.map((review) => (
+        <div className="review">
+          <ReviewDisplay review={review} />
+        </div>
+        ))
       )}
     </div>
   );

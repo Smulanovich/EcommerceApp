@@ -16,6 +16,9 @@ import Reviews from './pages/Products/Reviews';
 import CheckoutForm from './pages/Checkout/CheckoutForm';
 import CheckoutSucces from './pages/Checkout/CheckoutSucces.jsx';
 import OrderHistory from './pages/User/OrderHistory';
+import About from './pages/AboutContact/About.jsx';
+import Contact from './pages/AboutContact/Contact.jsx';
+
 
 const ReturnUserEmail = () => {
   const { user } = useContext(UserContext);
@@ -80,6 +83,14 @@ const router = createBrowserRouter([
       {
         path: '/checkout/success',
         element: <CheckoutSucces />,
+      },
+      {
+        path:'/AboutContact/About',
+        element: <About />,
+      },
+      {
+        path:'/AboutContact/Contact',
+        element: <Contact />,
       }
     ],
   },
