@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "@stripe/react-stripe-js": "^2.1.0",
+    "react-redux": "^8.0.7"
+  }
+}
