@@ -18,10 +18,7 @@ function About() {
                 <p className="about-paragraph">Santiago Mulanovich</p>
                 <p className="about-paragraph">Christian Kattie</p>
                 <p className="about-paragraph">Mario Prado</p>
-                <p className="about-paragraph">Mekael Yesfael</p>
-                <div className="about-logo">
-                    <img className="logo" src={logo} alt="Candyland Logo" />
-                </div>
+                <p className="about-paragraph">Mekael Yesfa</p>
             </div>
         </div>
     );

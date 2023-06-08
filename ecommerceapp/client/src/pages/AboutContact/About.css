@@ -49,14 +49,12 @@
     flex-direction: column;
     height: 100vh;
     background-color:rgb(206, 209, 206);
-    
-    
 }
 
-.about-content
+/* .about-content
 {
     margin-top:12%;
-}
+} */
 .about-heading
 {
     text-align:left;
@@ -64,6 +62,7 @@
     margin-bottom: 16px;
     margin-left: 30px;
     margin-right: 30px;
+    
     color:rgb(68, 144, 214);
     
 }
