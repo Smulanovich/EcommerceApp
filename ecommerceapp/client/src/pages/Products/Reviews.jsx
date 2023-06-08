@@ -109,7 +109,7 @@ function Reviews() {
         </div>
       ) : (
         data.reviews.map((review) => (
-        <div className="review">
+        <div className="review-specifics">
           <ReviewDisplay review={review} />
         </div>
         ))

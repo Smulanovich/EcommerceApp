@@ -7,9 +7,9 @@ function Contact() {
         <div className= "contact-container">
             <div className="contact-content">
                 <h2 className="contact-heading">Contact Us</h2>
-                <p className="contact-paragraph"> Address: Ur moms house</p>
-                <p className="contact-paragraph">Phone: 69</p>
-                <p className="contact-paragraph"> Email: yuhhhh@gmail.com</p>
+                <p className="contact-paragraph"> Address: 69420 Laffy Taffy Lane</p>
+                <p className="contact-paragraph">Phone: 1-800-CANDY</p>
+                <p className="contact-paragraph"> Email: sugarhigh4days@gmail.com</p>
             </div>
         </div>
     );

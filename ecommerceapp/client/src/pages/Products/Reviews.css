@@ -38,11 +38,21 @@
     border-radius:10px;
 }
 
-.review
+.review-specifics
 {
-    margin-bottom: 20px;
-    padding: 5px;
+    /* margin-bottom: 20px; */
+    /* padding: 5px; */
+    border: 2px solid rgb(68, 144, 214);
+    border-radius:10px;
+    padding: 1.5rem;
+    margin: 3rem;
+    
 }
+
+/* .review-specifics
+{
+    color:rgb(68, 144, 214) ;
+} */
 
 .review h2 
 {
@@ -65,3 +75,11 @@
     font-size: 18px;
     margin: 0;
 }
+
+
+/* .overallSignIn .auth-form-container{
+    padding: 3.5rem;
+    border: 1px solid white;
+    border-radius:10px;
+    margin: 0.5rem;
+} */
