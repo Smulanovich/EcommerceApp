@@ -108,11 +108,13 @@ function Reviews() {
           <h1>No reviews for this product</h1>
         </div>
       ) : (
-        data.reviews.map((review) => (
-        <div className="review-specifics">
-          <ReviewDisplay review={review} />
+        <div>
+          {data.reviews.map((review) => (
+            <div className="review-specifics">
+            <ReviewDisplay review={review} />
+          </div>
+          ))}
         </div>
-        ))
       )}
     </div>
   );
