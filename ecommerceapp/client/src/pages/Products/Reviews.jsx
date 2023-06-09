@@ -88,8 +88,9 @@ function Reviews() {
   }
 
   return (
-    <div className="review-page">
-      <CandyDisplay product={data} />
+
+    <div className="container">
+      <CandyDisplay product={data} className="candy-display"/>
       <div className="review-form">
         <h2>Write a Review</h2>
         <form onSubmit={handleSubmit}>
@@ -108,7 +109,13 @@ function Reviews() {
           <h1>No reviews for this product</h1>
         </div>
       ) : (
-        data.reviews.map((review) => <ReviewDisplay review={review} />)
+        <div>
+          {data.reviews.map((review) => (
+            <div className="review-specifics">
+            <ReviewDisplay review={review} />
+          </div>
+          ))}
+        </div>
       )}
     </div>
   ); 

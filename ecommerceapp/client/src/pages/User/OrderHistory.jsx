@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../User/UserProvider";
+import "./OrderHistory.css";
 
 const OrderHistory = () => {
   const [orders, setOrders] = React.useState([]);
@@ -41,14 +42,14 @@ const OrderHistory = () => {
 
   return (
     <div className="orderHistory">
-      <h1>Your Orders:</h1>
+      <h1 className="order-h1">Your Orders:</h1>
       {orders.map((order, index) => (
-        <div key={order._id}>
-          <h3>Order: {order._id}</h3>
-          <ul>
+        <div className="order-container" key={order._id}>
+          <h3 className="order-h3">Order: {order._id}</h3>
+          <ul className="order-ul">
             {order.orderArray.map(([item, quantity]) => (
-              <li key={item._id}>
-                <img src={item.image_address} alt={item.name} />
+              <li className="order-li" key={item._id}>
+                <img className="order-img" src={item.image_address} alt={item.name} />
                 <h4>{item.name.toUpperCase()}</h4>
                 <p>Price: ${item.price}</p>
                 <p>Quantity: {quantity}</p>
