@@ -3,21 +3,65 @@
     flex-direction: column;
     align-items: center;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
+    grid-gap: 120px;
+    grid-row-gap: 100px;
     justify-content: center;
-    margin-left: 250px;
-    margin-right: 250px;
-    margin-bottom: 100px;
-    margin-top: 50px;
+    margin: 0 auto; /* Add margin: 0 auto; to horizontally center the grid */
+    max-width: 960px; /* Adjust the max-width as per your preference */  
   }
 
-  .Favorites {
-    padding: 5px 10px;
-    font-size: 12px;
-    align-items: center;
-    margin-left: 50px;
-    margin-right: 50px;
-    width: 203px;
+  .productContainer {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Example shadow style */  
+    border-radius: 10px;
   }
+  
+  .buttonContainer {
+    display: flex;
+    gap: 10px; /* Adjust the gap as per your preference */
+    align-items: center; /* Center buttons vertically */
+  }
+  
+  .Favorites {
+    background: none;
+    border: none;
+    padding: 0;
+    scale: 0.5;
+  }
+  
+  .Favorites img {
+    transition: filter 0.3s; /* Add transition for smooth effect */
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+  }
+  
+  .Favorites:hover img {
+    filter: brightness(1.2); /* Example: increase brightness */
+  }
+  
+  .Favorites:active img {
+    filter: brightness(0.8); /* Example: decrease brightness when clicked */
+  }
+
+  .img {
+    margin-bottom: 0px;
+  }
+
+  .favoritesMessage {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #48C2F9;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  
+  
+  
+  
+  
   
   

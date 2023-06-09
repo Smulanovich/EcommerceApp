@@ -5,8 +5,9 @@ import CandyDisplay from "./CandyDisplay.jsx";
 import { UserContext } from "../../pages/User/UserProvider.jsx";
 import { CartContext } from "../Cart/CartProvider.jsx";
 import ViewReviewsButton from "./ViewReviewsButton.jsx";
-import "./ProductDisplay.css"; 
-
+import "./ProductDisplay.css";
+import favoritesImage from "../../images/addedToFavorites.png";
+import Footer from "../../components/Footer/Footer.jsx";
 
 function ProductDisplay() {
   const [products, setProducts] = useState([]);
@@ -25,18 +26,27 @@ function ProductDisplay() {
     }
     const userEmail = user.email;
     try {
-      const addSucces = await axios.post(
+      const addSuccess = await axios.post(
         `http://localhost:4000/api/users/favorite/${product.name}/add`,
         { userEmail, product }
       );
-      if (addSucces) {
+      if (addSuccess) {
         console.log("Added to favorites");
+        showFavoritesMessage();
       } else {
         console.log("Failed to add to favorites");
       }
     } catch (error) {
       console.error("Error adding to favorites:", error);
     }
+  };
+
+  const showFavoritesMessage = () => {
+    const favoritesMessage = document.getElementById("favoritesMessage");
+    favoritesMessage.style.display = "block";
+    setTimeout(() => {
+      favoritesMessage.style.display = "none";
+    }, 3000);
   };
 
   useEffect(() => {
@@ -62,16 +72,26 @@ function ProductDisplay() {
 
   console.log("User: ", user);
   return (
-    <div className="allProducts">
+    <div className="productPage">
+      <div className="allProducts">
       {products.map((product) => (
-        <div>
+        <div className="productContainer">
           <CandyDisplay product={product} />
-          <button className="Favorites" onClick={() => AddToFavorites(product)}>
-            Add To Favorites
-          </button>
-          <ViewReviewsButton productName={product.name}/>
+          <div className="buttonContainer">
+            <button className="Favorites" onClick={() => AddToFavorites(product)}>
+              <img src={favoritesImage} alt="Favorites" className="favoritesImage" />
+            </button>
+            <div className="reviews">
+              <ViewReviewsButton productName={product.name} />
+            </div>
+          </div>
         </div>
       ))}
+      <div id="favoritesMessage" className="favoritesMessage">
+        Item added to favorites
+      </div>
+      </div>
+      <Footer />
     </div>
   );
 }

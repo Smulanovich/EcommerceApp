@@ -1,4 +1,3 @@
-
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -12,25 +11,18 @@ import axios from "axios";
 import { useEffect } from "react";
 import logo from "../../images/CandyLand_Logo_Blue.png";
 
-
-
 const Navbar = () => {
-
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { getCartSize } = useContext(CartContext);
   const [candyProducts, setCandyProducts] = useState([]);
   const collections = ['CandyBar', 'CandyCorn', 'CandyStick'];
   const navigate = useNavigate('');
 
-
   const handleSearch = async (e) => {
     setSearchQuery(e.name);
     navigate(`/products/${collections[e.type - 1]}/${e.name}/reviews`);
-
-
   };
-
 
   useEffect(() => {
     const fetchCandyProducts = async () => {
@@ -45,65 +37,63 @@ const Navbar = () => {
 
     fetchCandyProducts();
   }, []);
-    
 
-  console.log("searchQuery: ", searchQuery);
+  const [showOverlay, setShowOverlay] = useState(false);
+
   return (
     <div className="Navbar">
       <div className="wrapper">
-      <div className="center">
-          <Link className="link" to="/">
-          <img className="logo" src={logo} alt="Candyland Logo" />
-          </Link>
+        <div className="center">
+          <div className="left">
+            <Link className="link" to="/">
+              <img className="logo" src={logo} alt="Candyland Logo" />
+            </Link>
+          </div>
         </div>
-        <div className="left">
-        </div>
-          <div className="item">
-            <Link className="link" to="/products/CandyBar">
-              Candy Bars
-            </Link>
-          </div>
-          <div className="item">
-            <Link className="link" to="/products/CandyCorn">
-              Candy Corn
-            </Link>
-          </div>
-          <div className="item">
-            <Link className="link" to="/products/CandyStick">
-              Candy Sticks
-            </Link>
-          </div>
-        <div className="right">
+        <div className="middle">
           {/* Search Bar */}
-          <div className="searchBar">
+          <div
+            className="searchBar"
+            onFocus={() => setShowOverlay(true)}
+            onBlur={() => setShowOverlay(false)}
+          >
             <input
               className="searchInput"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="What are you looking for?"
+              placeholder="Craving something more specific?"
             />
             <div className="searchButton">
               <SearchOutlinedIcon className="searchIcon" />
             </div>
             <div className="dropDownMenu">
-            {candyProducts
-            .filter(item => {
-              const searchTerm = searchQuery.toLowerCase();
-              const itemName = item.name.toLowerCase();
-              return searchTerm && itemName.startsWith(searchTerm) && itemName !== searchTerm; 
-            })
-            .slice(0,5)
-            .map(item => (
-              <div 
-              onClick={()=>handleSearch(item)} 
-              className="dropDownRow"
-              >
-                {item.name.toUpperCase()}
-              </div>
-            ))}
+              {candyProducts
+                .filter((item) => {
+                  const searchTerm = searchQuery.toLowerCase();
+                  const itemName = item.name.toLowerCase();
+                  return (
+                    searchTerm &&
+                    itemName.startsWith(searchTerm) &&
+                    itemName !== searchTerm
+                  );
+                })
+                .slice(0, 5)
+                .map((item) => (
+                  <div
+                    onClick={() => handleSearch(item)}
+                    className="dropDownRow"
+                    key={item.id}
+                  >
+                    {item.name.toUpperCase()}
+                  </div>
+                ))}
             </div>
           </div>
+          {/* Overlay */}
+          {showOverlay && <div className="overlay"></div>}
+        </div>
+        <div className="right">
           <div className="item">
             <Link className="link" to="/">
               About
@@ -115,12 +105,15 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="icons">
-            {/* <SearchOutlinedIcon /> */}
-            <Link className="link" to="/account"><AccountCircleOutlinedIcon/></Link>
-            <Link className="link" to='/account/favorites'><GradeOutlinedIcon/></Link>
+            <Link className="link" to="/account">
+              <AccountCircleOutlinedIcon />
+            </Link>
+            <Link className="link" to="/account/favorites">
+              <GradeOutlinedIcon />
+            </Link>
             <div className="cartIcon" onClick={() => setOpen(!open)}>
               <LocalMallOutlinedIcon />
-              <span>{(getCartSize())}</span>
+              <span>{getCartSize()}</span>
             </div>
           </div>
         </div>

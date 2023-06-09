@@ -1,0 +1,78 @@
+.homepage {
+    background-image: url("../../images/candyland_homepage_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.title {
+    margin-top: 0px;
+    margin-bottom: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    color: white;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.category-link {
+    position: relative;
+    margin: 10px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 150px;
+    margin-top: 0px;
+}
+
+.category-image {
+    width: 300px;
+    height: auto;
+    transition: transform 0.3s;
+    
+}
+
+.category-link:hover .category-image {
+    transform: scale(1.5);
+}
+
+.category-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 150%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.category-link:hover .category-overlay {
+    opacity: 1;
+}
+
+.category-text {
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    font-style: italic;
+    padding: 10px;
+
+}

@@ -1,27 +1,35 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
+import localforage from "localforage";
 
 export const CartContext = createContext();
 
 function CartProvider({ children }) {
-
   const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    localforage.getItem("cartItems").then((storedCartItems) => {
+      if (storedCartItems) {
+        setCartItems(storedCartItems);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    localforage.setItem("cartItems", cartItems);
+  }, [cartItems]);
 
   const addToCart = (item) => {
     setCartItems([...cartItems, item]);
   };
 
   const removeFromCart = (itemId) => {
-    const index = cartItems.findIndex((item) => item.id === itemId);
-    if (index !== -1) {
-      const newCartItems = [...cartItems];
-      newCartItems.splice(index, 1);
-      setCartItems(newCartItems);
-    }
+    const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
+    setCartItems(updatedCartItems);
   };
-  
 
   const clearCart = () => {
     setCartItems([]);
+    localforage.removeItem("cartItems");
   };
 
   const getCartSize = () => {

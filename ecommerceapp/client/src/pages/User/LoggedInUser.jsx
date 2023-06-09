@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import axios from "axios";
 import { UserContext } from "./UserProvider.jsx";
 import { useNavigate } from "react-router-dom";
+import "./LoggedInUser.css";
 
 
 const LoggedInUser = () => {
