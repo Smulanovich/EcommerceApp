@@ -4,6 +4,7 @@ import { CartContext } from "../Cart/CartProvider.jsx";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../User/UserProvider.jsx";
 import CandyDisplay from "./CandyDisplay.jsx";
+import "./Reviews.css"
 
 function Reviews() {
   const { productType, product } = useParams();
@@ -87,7 +88,7 @@ function Reviews() {
   }
 
   return (
-    <div>
+    <div className="review-page">
       <CandyDisplay product={data} />
       <div className="review-form">
         <h2>Write a Review</h2>
@@ -110,7 +111,7 @@ function Reviews() {
         data.reviews.map((review) => <ReviewDisplay review={review} />)
       )}
     </div>
-  );
+  ); 
 }
 
 export default Reviews;
