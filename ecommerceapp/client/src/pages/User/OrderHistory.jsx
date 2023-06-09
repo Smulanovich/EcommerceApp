@@ -46,11 +46,12 @@ const OrderHistory = () => {
         <div key={order._id}>
           <h3>Order: {order._id}</h3>
           <ul>
-            {order.orderArray.map((item) => (
+            {order.orderArray.map(([item, quantity]) => (
               <li key={item._id}>
                 <img src={item.image_address} alt={item.name} />
                 <h4>{item.name}</h4>
                 <p>Price: ${item.price}</p>
+                <p>Quantity: {quantity}</p>
               </li>
             ))}
           </ul>

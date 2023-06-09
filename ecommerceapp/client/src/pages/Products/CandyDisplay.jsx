@@ -30,7 +30,7 @@ const CandyDisplay = ({ product }) => {
   return (
     <div className="product-container">
       <div className="product">
-        <h2>{product.name}</h2>
+        <h2>{product.name.toUpperCase()}</h2>
         <img src={product.image_address} alt={`${product.name} img`} />
         <p className="price">{product.price}$</p>
       </div>
