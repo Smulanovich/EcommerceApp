@@ -42,6 +42,12 @@ const CheckoutForm = () => {
       navigate('/account');
       return;
     }
+
+    if (cartItems.length === 0) {
+      console.log('Cart is empty');
+      alert('Please add items to cart before checking out');
+      return;
+    }
   
     if (!stripe || !elements) {
       return;
