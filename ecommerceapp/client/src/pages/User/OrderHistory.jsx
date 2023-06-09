@@ -49,7 +49,7 @@ const OrderHistory = () => {
             {order.orderArray.map(([item, quantity]) => (
               <li key={item._id}>
                 <img src={item.image_address} alt={item.name} />
-                <h4>{item.name}</h4>
+                <h4>{item.name.toUpperCase()}</h4>
                 <p>Price: ${item.price}</p>
                 <p>Quantity: {quantity}</p>
               </li>
