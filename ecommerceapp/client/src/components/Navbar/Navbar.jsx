@@ -78,19 +78,21 @@ const Navbar = () => {
             <div className="searchButton">
               <SearchOutlinedIcon className="searchIcon" />
             </div>
-            <div className="dropDownMenu">
-              {filterCandyProducts(searchQuery)
-                .slice(0, 5)
-                .map((item) => (
-                  <div
-                    onClick={() => handleSearch(item)}
-                    className="dropDownRow"
-                    key={item.id}
-                  >
-                    {item.name.toUpperCase()}
-                  </div>
-                ))}
-            </div>
+            {searchQuery && (
+              <div className="dropDownMenu">
+                {filterCandyProducts(searchQuery)
+                  .slice(0, 5)
+                  .map((item) => (
+                    <div
+                      onClick={() => handleSearch(item)}
+                      className="dropDownRow"
+                      key={item.id}
+                    >
+                      {item.name.toUpperCase()}
+                    </div>
+                  ))}
+              </div>
+            )}
           </div>
           {/* Overlay */}
           {showOverlay && <div className="overlay"></div>}
