@@ -7,6 +7,12 @@
 # testing
 /coverage
 
+/server/node_modules
+/client/node_modules
+
+package-lock.json
+package.json
+
 # production
 /build
 
