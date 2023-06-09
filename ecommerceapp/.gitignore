@@ -7,9 +7,6 @@
 # testing
 /coverage
 
-ecommerceapp/server/node_modules
-ecommerceapp/client/node_modules
-
 package-lock.json
 package.json
 

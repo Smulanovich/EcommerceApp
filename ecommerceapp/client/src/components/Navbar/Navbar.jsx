@@ -1,14 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
-import "./Navbar.css"; 
-import Cart from '../../pages/Cart/Cart';
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
+import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
+import "./Navbar.css";
+import Cart from "../../pages/Cart/Cart";
 import { CartContext } from "../../pages/Cart/CartProvider";
 import axios from "axios";
-import { useEffect } from "react";
 import logo from "../../images/CandyLand_Logo_Blue.png";
 
 const Navbar = () => {
@@ -16,27 +15,39 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { getCartSize } = useContext(CartContext);
   const [candyProducts, setCandyProducts] = useState([]);
-  const collections = ['CandyBar', 'CandyCorn', 'CandyStick'];
-  const navigate = useNavigate('');
-
-  const handleSearch = async (e) => {
-    setSearchQuery(e.name);
-    navigate(`/products/${collections[e.type - 1]}/${e.name}/reviews`);
-  };
+  const collections = ["CandyBar", "CandyCorn", "CandyStick"];
+  const navigate = useNavigate("");
 
   useEffect(() => {
     const fetchCandyProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/products');
+        const response = await axios.get("http://localhost:4000/api/products");
         setCandyProducts(response.data);
         console.log(response.data);
       } catch (error) {
-        console.error('Error retrieving candy items:', error);
+        console.error("Error retrieving candy items:", error);
       }
     };
 
     fetchCandyProducts();
   }, []);
+
+  const handleSearch = (item) => {
+    setSearchQuery(item.name);
+    navigate(`/products/${collections[item.type - 1]}/${item.name}/reviews`);
+  };
+
+  const filterCandyProducts = (searchTerm) => {
+    return candyProducts.filter((item) => {
+      const itemName = item.name.toLowerCase();
+      return itemName.includes(searchTerm.toLowerCase());
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    setSearchQuery(inputValue);
+  };
 
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -61,23 +72,14 @@ const Navbar = () => {
               className="searchInput"
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={handleInputChange}
               placeholder="Craving something more specific?"
             />
             <div className="searchButton">
               <SearchOutlinedIcon className="searchIcon" />
             </div>
             <div className="dropDownMenu">
-              {candyProducts
-                .filter((item) => {
-                  const searchTerm = searchQuery.toLowerCase();
-                  const itemName = item.name.toLowerCase();
-                  return (
-                    searchTerm &&
-                    itemName.startsWith(searchTerm) &&
-                    itemName !== searchTerm
-                  );
-                })
+              {filterCandyProducts(searchQuery)
                 .slice(0, 5)
                 .map((item) => (
                   <div
