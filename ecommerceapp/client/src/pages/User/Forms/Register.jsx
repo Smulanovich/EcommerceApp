@@ -52,7 +52,7 @@ const Register = () => {
     <div className="overallSignIn">
       <div className="auth-form-container">
         <h2>Register</h2>
-        <p>{failedLoginMsg}</p>
+        <p className="errorMessage">{failedLoginMsg}</p>
         <form className="register-form" onSubmit={handleSubmit}>
           <label htmlFor="name">First Name</label>
           <input

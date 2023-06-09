@@ -44,7 +44,7 @@ const Login = () => {
     <div className="overallSignIn">
       <div className="auth-form-container">
         <h2>Login</h2>
-        <p>{failedLoginMsg}</p>
+          <p className="errorMessage">{failedLoginMsg}</p>
         <form className="login-form" onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <input

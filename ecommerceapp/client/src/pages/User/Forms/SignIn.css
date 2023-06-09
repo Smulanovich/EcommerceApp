@@ -57,3 +57,7 @@ body{
     color: white;
     text-decoration: underline;
 }
+
+.errorMessage {
+    color: white;
+}
